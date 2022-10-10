@@ -15,10 +15,123 @@ datasource db {
 model User{
   id Int @id @default(autoincrement())
   name String
-  email String
+  email String @unique
   password String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
   @@map("users")
+
+  calls Call[]
+}
+
+model Client {
+  id Int @id @default(autoincrement())
+  name String
+  cnpjcpf String @unique
+  sex String
+  nationality String
+  born_in DateTime
+  telephone String
+  telephone2 String
+  email String
+  company String
+  office String
+  status String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("clients")
+
+  address Address[]
+  calls Call[]
+  loans Loan[]
+  bank_account Bank_account[]
+}
+
+model Address {
+  id Int @id @default(autoincrement())
+  street String
+  zip_code String
+  district String
+  city String
+  state String
+  
+  // aqui está o relacionamento
+  // a tabela cliente pode ter varios endereços
+  // o campo client_id é chave estrangeira
+  client Client @relation(fields: [client_id], references: [id])
+  client_id Int
+
+  @@map("address")
+}
+
+model Call {
+  id Int @id @default(autoincrement())
+  start DateTime @default(now())
+  end DateTime @default(now())
+  contact_channel String
+
+  // relations
+  client Client @relation(fields: [client_id], references: [id])
+  client_id Int
+
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  loan Loan?
+
+  @@map("calls")  
+}
+
+model Loan {
+  id Int @id @default(autoincrement())
+  n_installments Int
+  v_installments Float
+  amount Float
+  start DateTime
+  end DateTime
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  category String
+
+  // relations  
+  bank_account Bank_account @relation(fields: [bank_account_id], references: [id])
+  bank_account_id Int @unique
+
+  call Call @relation(fields: [call_id], references: [id])
+  call_id Int @unique
+
+  client Client @relation(fields: [client_id], references: [id])
+  client_id Int
+
+  @@map("loans")
+}
+
+model Bank {
+  id Int @id @default(autoincrement())
+  name String
+  code Int
+
+  // relations
+  bank_account Bank_account[]
+
+  @@map("banks")  
+}
+
+model Bank_account {
+  id Int @id @default(autoincrement())
+  bank_id Int
+  agency Int
+  account Int
+
+  
+  bank Bank @relation(fields: [bank_id], references: [id])
+
+  client Client @relation(fields: [client_id], references: [id])
+  client_id Int
+
+  loan Loan?
+
+  @@map("bank_account")  
 }
