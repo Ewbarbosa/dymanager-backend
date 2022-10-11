@@ -33,11 +33,11 @@ model Client {
   nationality String
   born_in DateTime
   telephone String
-  telephone2 String
+  telephone2 String?
   email String
   company String
   office String
-  status String
+  status String?
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
