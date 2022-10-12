@@ -18,10 +18,10 @@ interface ClientRequest {
 class CreateClientService {
 
   // funcao main/principal da classe
-  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }) {
+  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }: ClientRequest) {
 
     // verifica se os campos foram preenchidos
-    if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || born_in === '' || telephone === '' || email === ''){
+    if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
       throw new Error('Mandatory fields must be filled')
     }
 
