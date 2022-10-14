@@ -35,8 +35,7 @@ class CreateAddressService {
         state: true,
         client_id: true        
       }
-    })
-  
+    })  
   
     return address;
   }
