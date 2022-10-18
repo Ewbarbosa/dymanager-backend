@@ -9,6 +9,7 @@ import { isAuthenticated } from './middlewares/isAuthenticated';
 import { CreateAddresController } from './controllers/address/CreateAddressController';
 import { DetailClientController } from './controllers/client/DetailClientController';
 import { ListClientController } from './controllers/client/ListClientController';
+import { UpdateClientController } from './controllers/client/UpdateClientController';
 
 
 const router = Router();
@@ -22,6 +23,7 @@ router.get('/me', isAuthenticated, new DetailUserController().handle);
 router.post('/clients', isAuthenticated, new CreateClientController().handle);
 router.get('/client', isAuthenticated, new DetailClientController().handle);
 router.get('/clients', isAuthenticated, new ListClientController().handle);
+router.put('/client', isAuthenticated, new UpdateClientController().handle)
 
 // rotas address
 router.post('/clients/address', isAuthenticated, new CreateAddresController().handle);

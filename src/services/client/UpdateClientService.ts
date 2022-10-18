@@ -2,6 +2,7 @@ import prismaClient from "../../prisma";
 
 // aqui é criado uma interface do tipo clientRequest
 interface ClientRequest {
+  id: number;
   name: string;
   cnpjcpf: string;
   sex: string;
@@ -15,10 +16,9 @@ interface ClientRequest {
   status: string;
 }
 
-class CreateClientService {
-
+class UpdateClientService {
   // funcao main/principal da classe
-  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }: ClientRequest) {
+  async execute({ id, name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }: ClientRequest) {
 
     // verifica se os campos foram preenchidos
     if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
@@ -26,8 +26,11 @@ class CreateClientService {
     }
 
     // recebe os campos e usa o metodo create pra gravar no banco de dados
-    const client = await prismaClient.client.create({
-      data: {
+    const client = await prismaClient.client.update({
+      where: {
+        id : id,
+      },
+      data:{
         name: name,
         cnpjcpf: cnpjcpf,
         sex: sex,
@@ -39,17 +42,10 @@ class CreateClientService {
         company: company,
         office: office,
         status: status
-      },
-      select:{
-        id: true,
-        name: true,
-        cnpjcpf: true
       }
     })
     return client;
-
   }
-
 }
 
-export { CreateClientService }
+export { UpdateClientService }
