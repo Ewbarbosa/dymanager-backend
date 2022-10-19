@@ -1,6 +1,7 @@
 import express, {Request, Response, NextFunction} from 'express';
 
 // importar sempre como segundo - orientação da lib
+// usar pra realizar tratamento de erros
 import 'express-async-errors'
 
 import cors from 'cors';
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(router);
 
 // middleware de tratamento de erros
+// muito util pra lancar exceções com try catch sem quebrar a aplicação
 app.use((err: Error, req: Request, res: Response, next: NextFunction)=>{
   if(err instanceof Error){
     // se for uma instancia do tipo erro

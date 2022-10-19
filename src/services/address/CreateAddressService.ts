@@ -1,7 +1,6 @@
 import prismaClient from "../../prisma";
 
 interface AddressRequest {
-
   street: string;
   zip_code: string;
   district: string;

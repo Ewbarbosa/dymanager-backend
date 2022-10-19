@@ -5,12 +5,12 @@ class DetailClientController {
   async handle(req: Request, res: Response) {
 
     // salva os dados da requisição
-    const { client_id } = req.body;
+    const { cnpjcpf } = req.body;
 
     // instancia da classe
     const detailClientService = new DetailClientService();
 
-    const client = await detailClientService.execute(client_id);
+    const client = await detailClientService.execute(cnpjcpf);
 
     return res.json(client);
   }
