@@ -36,4 +36,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction)=>{
 })
 
 // faz com que o app passe a utilizar a porta 3333
-app.listen(3333, ()=> console.log('Server ON!'));
+app.listen(process.env.PORT, ()=> console.log('Server ON!'));
