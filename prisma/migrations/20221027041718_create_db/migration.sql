@@ -1,9 +1,15 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "users" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
-  - A unique constraint covering the columns `[email]` on the table `users` will be added. If there are existing duplicate values, this will fail.
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
 
-*/
 -- CreateTable
 CREATE TABLE "clients" (
     "id" SERIAL NOT NULL,
@@ -13,11 +19,11 @@ CREATE TABLE "clients" (
     "nationality" TEXT NOT NULL,
     "born_in" TIMESTAMP(3) NOT NULL,
     "telephone" TEXT NOT NULL,
-    "telephone2" TEXT NOT NULL,
+    "telephone2" TEXT,
     "email" TEXT NOT NULL,
     "company" TEXT NOT NULL,
     "office" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" TEXT,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
@@ -88,6 +94,9 @@ CREATE TABLE "bank_account" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "clients_cnpjcpf_key" ON "clients"("cnpjcpf");
 
 -- CreateIndex
@@ -95,9 +104,6 @@ CREATE UNIQUE INDEX "loans_bank_account_id_key" ON "loans"("bank_account_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "loans_call_id_key" ON "loans"("call_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
 ALTER TABLE "address" ADD CONSTRAINT "address_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "clients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
