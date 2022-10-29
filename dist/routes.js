@@ -23,9 +23,9 @@ router.post('/users', new CreateUserController_1.CreateUserController().handle);
 router.post('/session', new AuthUserController_1.AuthUserController().handle);
 router.get('/me', isAuthenticated_1.isAuthenticated, new DetailUserController_1.DetailUserController().handle);
 // rotas clients
-router.post('/clients', isAuthenticated_1.isAuthenticated, new CreateClientController_1.CreateClientController().handle);
+router.post('/client', isAuthenticated_1.isAuthenticated, new CreateClientController_1.CreateClientController().handle);
 router.get('/client', isAuthenticated_1.isAuthenticated, new DetailClientController_1.DetailClientController().handle);
-router.get('/clients', isAuthenticated_1.isAuthenticated, new ListClientController_1.ListClientController().handle);
+router.get('/client', isAuthenticated_1.isAuthenticated, new ListClientController_1.ListClientController().handle);
 router.put('/client', isAuthenticated_1.isAuthenticated, new UpdateClientController_1.UpdateClientController().handle);
 router.delete('/client', isAuthenticated_1.isAuthenticated, new DeleteClientController_1.DeleteClientController().handle);
 // rotas address
