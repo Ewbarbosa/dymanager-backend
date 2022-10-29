@@ -23,9 +23,9 @@ router.post('/session', new AuthUserController().handle);
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 
 // rotas clients
-router.post('/clients', isAuthenticated, new CreateClientController().handle);
+router.post('/client', isAuthenticated, new CreateClientController().handle);
 router.get('/client', isAuthenticated, new DetailClientController().handle);
-router.get('/clients', isAuthenticated, new ListClientController().handle);
+router.get('/client', isAuthenticated, new ListClientController().handle);
 router.put('/client', isAuthenticated, new UpdateClientController().handle)
 router.delete('/client', isAuthenticated, new DeleteClientController().handle);
 
