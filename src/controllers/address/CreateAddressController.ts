@@ -1,10 +1,10 @@
-import {Request, Response} from 'express'
+import { Request, Response } from 'express'
 import { CreateAddressService } from '../../services/address/CreateAddressService'
 
 class CreateAddresController {
-  async handle(req: Request, res:Response){
+  async handle(req: Request, res: Response) {
 
-    const { street, zip_code, district, city, state, client_id} = req.body;
+    const { street, zip_code, district, city, state, client_id } = req.body;
 
     const createAddressService = new CreateAddressService();
 
