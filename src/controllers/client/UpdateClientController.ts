@@ -15,8 +15,6 @@ class UpdateClientController {
       telephone, 
       telephone2,
       email,
-      company,
-      office,
       status
     } = req.body;
 
@@ -32,8 +30,6 @@ class UpdateClientController {
       telephone,
       telephone2,
       email,
-      company,
-      office,
       status
     })
 

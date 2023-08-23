@@ -13,8 +13,6 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
-      company,
-      office,
       status
     } = req.body;
 
@@ -29,8 +27,6 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
-      company,
-      office,
       status 
     });
     
