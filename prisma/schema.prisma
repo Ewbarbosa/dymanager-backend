@@ -27,35 +27,74 @@ model User {
 
 model Client {
   id          Int       @id @default(autoincrement())
-  name        String
-  cnpjcpf     String    @unique
-  sex         String
-  nationality String
-  born_in     DateTime
-  telephone   String
-  telephone2  String?
-  email       String
-  company     String
-  office      String
-  status      String?
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @default(now())
+  name        String // nome completo
+  rg          String?    @unique // rg
+  cnpjcpf     String    @unique // cpf ou cnpj
+  sex         String? // sexo
+  nationality String // nacionalidade
+  born_in     DateTime // nascimento
+  marital_status String? // estado civil
+  telephone   String // telefone
+  telephone2  String? // telefone 2
+  email       String // email pessoal
+  work_card   String? // carteira de trabalho
+  pis         String? // pis
+  parent_affiliation String? // nome da mãe
+  mother_affiliation String? // nome do pai  
+  status      String? // ativo ou inativo
+  created_at  DateTime? @default(now()) // criado em
+  updated_at  DateTime? @default(now()) // atualizado em
 
-  address      Address[]
-  calls        Call[]
-  loans        Loan[]
-  bank_account Bank_account[]
+  address      Address[] // endereço
+  professional_data Professional_Data[] // dados profissionais
+  calls        Call[] // atendimentos
+  loans        Loan[] // emprestimos
+  bank_account Bank_account[] // conta em banco
+  process      Process[] // processos
 
   @@map("clients")
 }
 
+model Professional_Data {
+  id Int @id @default(autoincrement())
+  company     String? // empresa onde trabalha
+  office      String? // profissão
+  salary      Float?  // salário
+  admission_at DateTime? // data de admissão
+  resignation_at DateTime? // data de demissão
+  last_day      DateTime?  // último dia trabalhado
+  observation String?
+
+  client Client @relation(fields: [client_id], references: [id])
+  client_id Int  
+
+  @@map("professional_data")
+}
+
+model Process {
+  id Int @id @default(autoincrement())
+  forum String? // forum
+  number String? // numero do processo
+  court_division String? // vara
+  action String? // ação
+  distributed_at DateTime?
+  cause_value Float?
+  status String?
+  observation String?
+
+  client_id Int
+  client Client @relation(fields: [client_id], references: [id])  
+
+  @@map("process")
+}
+
 model Address {
   id       Int    @id @default(autoincrement())
-  street   String
-  zip_code String
-  district String
-  city     String
-  state    String
+  street   String // rua com numero
+  zip_code String // cep
+  district String // bairro
+  city     String // cidade
+  state    String // estado
 
   // aqui está o relacionamento
   // a tabela cliente pode ter varios endereços
@@ -86,8 +125,8 @@ model Call {
 
 model Loan {
   id             Int       @id @default(autoincrement())
-  n_installments Int
-  v_installments Float
+  n_installments Int // numero de parcelas
+  v_installments Float // valor das parcelas
   amount         Float
   start          DateTime
   end            DateTime
@@ -111,8 +150,8 @@ model Loan {
 
 model Bank {
   id   Int    @id @default(autoincrement())
-  name String
-  code Int
+  name String // nome do banco
+  code Int // codigo do banco
 
   // relations
   bank_account Bank_account[]
@@ -121,17 +160,18 @@ model Bank {
 }
 
 model Bank_account {
-  id      Int @id @default(autoincrement())
-  bank_id Int
-  agency  Int
-  account Int
+  id      Int @id @default(autoincrement())  
+  agency  Int // agencia
+  account Int // conta
+  
+  // aqui é uma relação entre tabelas
+  loan Loan?
 
   bank Bank @relation(fields: [bank_id], references: [id])
+  bank_id Int // código do banco
 
   client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
-
-  loan Loan?
+  client_id Int // id do cliente  
 
   @@map("bank_account")
 }

@@ -14,8 +14,6 @@ class ListClientService {
         telephone: true,
         telephone2: true,
         email: true,
-        company: true,
-        office: true,
         status: true
       }
     })

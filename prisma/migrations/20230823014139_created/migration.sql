@@ -14,20 +14,55 @@ CREATE TABLE "users" (
 CREATE TABLE "clients" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "rg" TEXT,
     "cnpjcpf" TEXT NOT NULL,
-    "sex" TEXT NOT NULL,
+    "sex" TEXT,
     "nationality" TEXT NOT NULL,
     "born_in" TIMESTAMP(3) NOT NULL,
+    "marital_status" TEXT,
     "telephone" TEXT NOT NULL,
     "telephone2" TEXT,
     "email" TEXT NOT NULL,
-    "company" TEXT NOT NULL,
-    "office" TEXT NOT NULL,
+    "work_card" TEXT,
+    "pis" TEXT,
+    "parent_affiliation" TEXT,
+    "mother_affiliation" TEXT,
     "status" TEXT,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "clients_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "professional_data" (
+    "id" SERIAL NOT NULL,
+    "company" TEXT,
+    "office" TEXT,
+    "salary" DOUBLE PRECISION,
+    "admission_at" TIMESTAMP(3),
+    "resignation_at" TIMESTAMP(3),
+    "last_day" TIMESTAMP(3),
+    "observation" TEXT,
+    "client_id" INTEGER NOT NULL,
+
+    CONSTRAINT "professional_data_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "process" (
+    "id" SERIAL NOT NULL,
+    "forum" TEXT,
+    "number" TEXT,
+    "court_division" TEXT,
+    "action" TEXT,
+    "distributed_at" TIMESTAMP(3),
+    "cause_value" DOUBLE PRECISION,
+    "status" TEXT,
+    "observation" TEXT,
+    "client_id" INTEGER NOT NULL,
+
+    CONSTRAINT "process_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -85,9 +120,9 @@ CREATE TABLE "banks" (
 -- CreateTable
 CREATE TABLE "bank_account" (
     "id" SERIAL NOT NULL,
-    "bank_id" INTEGER NOT NULL,
     "agency" INTEGER NOT NULL,
     "account" INTEGER NOT NULL,
+    "bank_id" INTEGER NOT NULL,
     "client_id" INTEGER NOT NULL,
 
     CONSTRAINT "bank_account_pkey" PRIMARY KEY ("id")
@@ -97,6 +132,9 @@ CREATE TABLE "bank_account" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "clients_rg_key" ON "clients"("rg");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "clients_cnpjcpf_key" ON "clients"("cnpjcpf");
 
 -- CreateIndex
@@ -104,6 +142,12 @@ CREATE UNIQUE INDEX "loans_bank_account_id_key" ON "loans"("bank_account_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "loans_call_id_key" ON "loans"("call_id");
+
+-- AddForeignKey
+ALTER TABLE "professional_data" ADD CONSTRAINT "professional_data_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "clients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "process" ADD CONSTRAINT "process_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "clients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "address" ADD CONSTRAINT "address_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "clients"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -10,15 +10,13 @@ interface ClientRequest {
   telephone: string;
   telephone2: string;
   email: string;
-  company: string;
-  office: string;
   status: string;
 }
 
 class CreateClientService {
 
   // funcao main/principal da classe
-  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }: ClientRequest) {
+  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status }: ClientRequest) {
 
     // verifica se os campos foram preenchidos
     if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
@@ -35,9 +33,7 @@ class CreateClientService {
         born_in: born_in,
         telephone: telephone,
         telephone2: telephone2,
-        email: email,
-        company: company,
-        office: office,
+        email: email,        
         status: status
       },
       select:{

@@ -18,18 +18,18 @@ export function isAuthenticated(
 ) {
 
   // receber o token
-  const authToken = req.headers.authorization;
+  const authToken = req.headers.authorization;  
 
   // se não existir token retorna status 401 de não autorizado
   // e não deixa o usuário prosseguir com a requisição
-  if (!authToken) {
+  if (!authToken) {    
     return res.status(401).end();
   }
 
   // aqui é criado uma array recebendo o authToken
   // em seguida é usado o metodo split pra pegar apenas o conteudo entre os espaços
   // dentro de colchetes é usado a virgula pra ignorar o primeiro item e o segundo é dado o nome de token
-  const [, token] = authToken.split(" ");
+  const [, token] = authToken.split(" ");  
 
   try {
     // validação do token
@@ -49,7 +49,7 @@ export function isAuthenticated(
     return next();
 
   } catch (err) {
-    // se algo der errado cai no return
+    // se algo der errado cai no return    
     return res.status(401).end();
   }
 }
