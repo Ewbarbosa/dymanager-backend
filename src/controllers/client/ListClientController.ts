@@ -8,6 +8,8 @@ class ListClientController {
 
     const clients = await listClientService.execute();
 
+    //console.log(clients);
+
     return res.json(clients);
   }
 }

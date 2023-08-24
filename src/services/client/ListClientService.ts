@@ -18,7 +18,9 @@ class ListClientService {
       }
     })
 
-    return {clients};
+    //console.log(clients);
+
+    return clients;
   }
 }
 
