@@ -1,20 +1,29 @@
 import { Router } from 'express';
-import { CreateUserController } from './controllers/user/CreateUserController';
+
 import { AuthUserController } from './controllers/user/AuthUserController';
+
 import { DetailUserController } from './controllers/user/DetailUserController';
-import { CreateClientController } from './controllers/client/CreateClientController';
+import { CreateUserController } from './controllers/user/CreateUserController';
+
 import { CreateAddresController } from './controllers/address/CreateAddressController';
+import { UpdateAddressController } from './controllers/address/UpdateAddressController';
+import { DeleteAddressController } from './controllers/address/DeleteAddressController';
+import { ListAddresController } from './controllers/address/ListAddresController';
+
+import { CreateClientController } from './controllers/client/CreateClientController';
 import { DetailClientController } from './controllers/client/DetailClientController';
 import { ListClientController } from './controllers/client/ListClientController';
 import { UpdateClientController } from './controllers/client/UpdateClientController';
 import { DeleteClientController } from './controllers/client/DeleteClientController';
-import { UpdateAddressController } from './controllers/address/UpdateAddressController';
+
 import { ListProcessController } from './controllers/process/ListProcessController';
+import { CreateProcessController } from './controllers/process/CreateProcessController';
+import { DetailProcessController } from './controllers/process/DetailProcessController';
+import { DeleteProcessController } from './controllers/process/DeleteProcessController';
+import { UpdateProcessController } from './controllers/process/UpdateProcessController';
 
 // middleware
 import { isAuthenticated } from './middlewares/isAuthenticated';
-import { DeleteAddressController } from './controllers/address/DeleteAddressController';
-import { ListAddresController } from './controllers/address/ListAddresController';
 
 const router = Router();
 
@@ -37,7 +46,11 @@ router.put('/client/address', isAuthenticated, new UpdateAddressController().han
 router.delete('/client/address', isAuthenticated, new DeleteAddressController().handle);
 
 // rotas process
-router.get('/process', isAuthenticated, new ListProcessController().handle);
+router.get('/processes', isAuthenticated, new ListProcessController().handle);
+router.post('/process', isAuthenticated, new CreateProcessController().handle);
+router.get('/process', isAuthenticated, new DetailProcessController().handle);
+router.delete('/process', isAuthenticated, new DeleteProcessController().handle);
+router.put('/process', isAuthenticated, new UpdateProcessController().handle);
 
 // se quiser lançar uma exceção como erro utilizar a linha abaixo
 //throw new Error('Erro ao fazer essa requisição.')
