@@ -1,4 +1,4 @@
-import {Router, Request, Response} from 'express';
+import { Router } from 'express';
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
 import { DetailUserController } from './controllers/user/DetailUserController';
@@ -9,6 +9,7 @@ import { ListClientController } from './controllers/client/ListClientController'
 import { UpdateClientController } from './controllers/client/UpdateClientController';
 import { DeleteClientController } from './controllers/client/DeleteClientController';
 import { UpdateAddressController } from './controllers/address/UpdateAddressController';
+import { ListProcessController } from './controllers/process/ListProcessController';
 
 // middleware
 import { isAuthenticated } from './middlewares/isAuthenticated';
@@ -35,10 +36,11 @@ router.post('/client/address', isAuthenticated, new CreateAddresController().han
 router.put('/client/address', isAuthenticated, new UpdateAddressController().handle);
 router.delete('/client/address', isAuthenticated, new DeleteAddressController().handle);
 
+// rotas process
+router.get('/process', isAuthenticated, new ListProcessController().handle);
 
-  
-  // se quiser lançar uma exceção como erro utilizar a linha abaixo
-  //throw new Error('Erro ao fazer essa requisição.')
+// se quiser lançar uma exceção como erro utilizar a linha abaixo
+//throw new Error('Erro ao fazer essa requisição.')
 
 
-export {router};
+export { router };
