@@ -30,7 +30,7 @@ class CreateProcessController {
       client_id
     });
 
-    return process;
+    return res.json(process);
   }
 }
 

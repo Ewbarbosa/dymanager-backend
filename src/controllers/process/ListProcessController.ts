@@ -7,7 +7,7 @@ class ListProcessController {
 
     const listClientService = new ListProcessService();
 
-    const process =  await listClientService.execute();
+    const process = await listClientService.execute();
 
     return res.json(process);
   }

@@ -11,6 +11,8 @@ class ListProcessService {
       }
     })
 
+    //console.log(process);
+
     return process;
   }
 }

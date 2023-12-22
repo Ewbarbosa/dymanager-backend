@@ -47,8 +47,8 @@ router.delete('/client/address', isAuthenticated, new DeleteAddressController().
 
 // rotas process
 router.get('/processes', isAuthenticated, new ListProcessController().handle);
-router.post('/process', isAuthenticated, new CreateProcessController().handle);
 router.get('/process', isAuthenticated, new DetailProcessController().handle);
+router.post('/process', isAuthenticated, new CreateProcessController().handle);
 router.delete('/process', isAuthenticated, new DeleteProcessController().handle);
 router.put('/process', isAuthenticated, new UpdateProcessController().handle);
 

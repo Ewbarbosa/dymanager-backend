@@ -41,9 +41,9 @@ class CreateClientService {
         name: true,
         cnpjcpf: true
       }
-    })
-    return client;
+    });
 
+    return client;
   }
 
 }
