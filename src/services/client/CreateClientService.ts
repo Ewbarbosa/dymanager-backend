@@ -19,9 +19,9 @@ class CreateClientService {
   async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status }: ClientRequest) {
 
     // verifica se os campos foram preenchidos
-    if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
-      throw new Error('Mandatory fields must be filled')
-    }
+    //if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
+    //  throw new Error('Mandatory fields must be filled')
+    //}
 
     // recebe os campos e usa o metodo create pra gravar no banco de dados
     const client = await prismaClient.client.create({

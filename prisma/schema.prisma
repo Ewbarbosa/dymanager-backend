@@ -20,6 +20,7 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
+  clients Client[]
   calls Call[]
 
   @@map("users")
@@ -27,23 +28,27 @@ model User {
 
 model Client {
   id          Int       @id @default(autoincrement())
-  name        String // nome completo
+  name        String? // nome completo
   rg          String?    @unique // rg
-  cnpjcpf     String    @unique // cpf ou cnpj
+  cnpjcpf     String?    @unique // cpf ou cnpj
   sex         String? // sexo
-  nationality String // nacionalidade
-  born_in     DateTime // nascimento
+  nationality String? // nacionalidade
+  born_in     DateTime? // nascimento
   marital_status String? // estado civil
-  telephone   String // telefone
+  telephone   String? // telefone
   telephone2  String? // telefone 2
-  email       String // email pessoal
+  email       String? // email pessoal
   work_card   String? // carteira de trabalho
   pis         String? // pis
   parent_affiliation String? // nome da mãe
   mother_affiliation String? // nome do pai  
   status      String? // ativo ou inativo
+
+  user User @relation(fields: [id_user], references: [id])
+  id_user     Int // criado por user
+
   created_at  DateTime? @default(now()) // criado em
-  updated_at  DateTime? @default(now()) // atualizado em
+  updated_at  DateTime? @default(now()) // atualizado em  
 
   address      Address[] // endereço
   professional_data Professional_Data[] // dados profissionais
@@ -55,7 +60,7 @@ model Client {
   @@map("clients")
 }
 
-model Professional_Data {
+model Professional_Data { // dados profissionais
   id Int @id @default(autoincrement())
   company     String? // empresa onde trabalha
   office      String? // profissão
@@ -90,11 +95,11 @@ model Process {
 
 model Address {
   id       Int    @id @default(autoincrement())
-  street   String // rua com numero
-  zip_code String // cep
-  district String // bairro
-  city     String // cidade
-  state    String // estado
+  street   String? // rua com numero
+  zip_code String? // cep
+  district String? // bairro
+  city     String? // cidade
+  state    String? // estado
 
   // aqui está o relacionamento
   // a tabela cliente pode ter varios endereços
@@ -107,9 +112,9 @@ model Address {
 
 model Call {
   id              Int      @id @default(autoincrement())
-  start           DateTime @default(now())
-  end             DateTime @default(now())
-  contact_channel String
+  start           DateTime? @default(now())
+  end             DateTime? @default(now())
+  contact_channel String?
 
   // relations
   client    Client @relation(fields: [client_id], references: [id])

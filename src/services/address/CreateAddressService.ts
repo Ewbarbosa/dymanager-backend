@@ -12,9 +12,9 @@ interface AddressRequest {
 class CreateAddressService {
   async execute({ street, zip_code, district, city, state, client_id }: AddressRequest) {
     
-    if ( street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id){
-      throw new Error('Mandatory fields must be filled')
-    }
+    //if ( street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id){
+    //  throw new Error('Mandatory fields must be filled')
+    //}
 
     // recebe os campos e usa o metodo create pra salvar no banco
     const address = await prismaClient.address.create({
