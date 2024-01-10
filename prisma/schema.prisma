@@ -20,7 +20,7 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  clients Client[]
+  //clients Client[]
   calls Call[]
 
   @@map("users")
@@ -44,8 +44,8 @@ model Client {
   mother_affiliation String? // nome do pai  
   status      String? // ativo ou inativo
 
-  user User @relation(fields: [id_user], references: [id])
-  id_user     Int // criado por user
+  //user User @relation(fields: [id_user], references: [id])
+  //id_user     Int // criado por user
 
   created_at  DateTime? @default(now()) // criado em
   updated_at  DateTime? @default(now()) // atualizado em  
