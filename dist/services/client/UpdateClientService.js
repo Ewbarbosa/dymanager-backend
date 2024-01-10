@@ -16,7 +16,7 @@ exports.UpdateClientService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class UpdateClientService {
     // funcao main/principal da classe
-    execute({ id, name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }) {
+    execute({ id, name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status }) {
         return __awaiter(this, void 0, void 0, function* () {
             // verifica se os campos foram preenchidos
             if (name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === '') {
@@ -36,8 +36,6 @@ class UpdateClientService {
                     telephone: telephone,
                     telephone2: telephone2,
                     email: email,
-                    company: company,
-                    office: office,
                     status: status
                 }
             });

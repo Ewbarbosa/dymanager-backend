@@ -16,6 +16,7 @@ class ListClientController {
         return __awaiter(this, void 0, void 0, function* () {
             const listClientService = new ListClientService_1.ListClientService();
             const clients = yield listClientService.execute();
+            //console.log(clients);
             return res.json(clients);
         });
     }

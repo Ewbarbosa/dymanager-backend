@@ -14,7 +14,7 @@ const UpdateClientService_1 = require("../../services/client/UpdateClientService
 class UpdateClientController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id, name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status } = req.body;
+            const { id, name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status } = req.body;
             const updateClientService = new UpdateClientService_1.UpdateClientService();
             const client = yield updateClientService.execute({
                 id,
@@ -26,8 +26,6 @@ class UpdateClientController {
                 telephone,
                 telephone2,
                 email,
-                company,
-                office,
                 status
             });
             return res.json(client);

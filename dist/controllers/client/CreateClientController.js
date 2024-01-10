@@ -14,7 +14,7 @@ const CreateClientService_1 = require("../../services/client/CreateClientService
 class CreateClientController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status } = req.body;
+            const { name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status } = req.body;
             const createClientService = new CreateClientService_1.CreateClientService();
             const client = yield createClientService.execute({
                 name,
@@ -25,8 +25,6 @@ class CreateClientController {
                 telephone,
                 telephone2,
                 email,
-                company,
-                office,
                 status
             });
             return res.json(client);

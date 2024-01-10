@@ -29,7 +29,7 @@ function isAuthenticated(req, res, next) {
         return next();
     }
     catch (err) {
-        // se algo der errado cai no return
+        // se algo der errado cai no return    
         return res.status(401).end();
     }
 }

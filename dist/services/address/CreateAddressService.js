@@ -17,9 +17,9 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class CreateAddressService {
     execute({ street, zip_code, district, city, state, client_id }) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id) {
-                throw new Error('Mandatory fields must be filled');
-            }
+            //if ( street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id){
+            //  throw new Error('Mandatory fields must be filled')
+            //}
             // recebe os campos e usa o metodo create pra salvar no banco
             const address = yield prisma_1.default.address.create({
                 data: {

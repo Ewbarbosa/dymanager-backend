@@ -16,12 +16,12 @@ exports.CreateClientService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class CreateClientService {
     // funcao main/principal da classe
-    execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, company, office, status }) {
+    execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status }) {
         return __awaiter(this, void 0, void 0, function* () {
             // verifica se os campos foram preenchidos
-            if (name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === '') {
-                throw new Error('Mandatory fields must be filled');
-            }
+            //if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
+            //  throw new Error('Mandatory fields must be filled')
+            //}
             // recebe os campos e usa o metodo create pra gravar no banco de dados
             const client = yield prisma_1.default.client.create({
                 data: {
@@ -33,8 +33,6 @@ class CreateClientService {
                     telephone: telephone,
                     telephone2: telephone2,
                     email: email,
-                    company: company,
-                    office: office,
                     status: status
                 },
                 select: {
