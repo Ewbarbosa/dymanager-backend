@@ -1,8 +1,12 @@
 import prismaClient from "../../prisma";
 
+interface ProcessProps {
+  id: number;
+}
+
 class DetailProcessService {
 
-  async execute(id: number) {
+  async execute({ id }: ProcessProps) {
 
     const process = await prismaClient.process.findFirst({
       where: {
@@ -17,8 +21,7 @@ class DetailProcessService {
         distributed_at: true,
         cause_value: true,
         status: true,
-        observation: true,
-        client_id: true
+        observation: true,        
       }
     })
 

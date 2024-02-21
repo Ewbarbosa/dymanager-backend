@@ -4,11 +4,17 @@ import { DetailProcessService } from "../../services/process/DetailProcessServic
 class DetailProcessController {
   async handle(req: Request, res: Response) {
 
-    const { id } = req.body;
+    const reqId = req.query.id as string;
+
+    if (reqId === '' || reqId === undefined){
+      return res.status(400).json({ "message": "mandatory fields must be filled" })
+    }
+
+    const id = parseInt(reqId)
 
     const detailProcessService = new DetailProcessService();
 
-    const process = detailProcessService.execute(id);
+    const process = detailProcessService.execute({id});
 
     return res.json(process);
 

@@ -6,6 +6,7 @@ class CreateClientController {
   async handle(req: Request, res: Response){
     const {
       name, 
+      rg,
       cnpjcpf, 
       sex, 
       nationality, 
@@ -13,13 +14,15 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
-      status
+      status,
+      user_id
     } = req.body;
 
     const createClientService = new CreateClientService();
 
     const client = await createClientService.execute({
       name, 
+      rg,
       cnpjcpf, 
       sex, 
       nationality, 
@@ -27,7 +30,8 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
-      status 
+      status,
+      user_id
     });
     
     return res.json(client);

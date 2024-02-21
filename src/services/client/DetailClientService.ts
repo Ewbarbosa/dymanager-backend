@@ -1,15 +1,21 @@
 import prismaClient from "../../prisma";
 
+interface ClientProps {
+  cnpjcpf: string;
+}
+
 class DetailClientService {
 
   // funcao pra buscar um cliente pelo ID
-  async execute(cnpjcpf: string) {
+  async execute({ cnpjcpf }: ClientProps) {
 
     // equivalente 
     // select * from where id = client_id
-    const client = await prismaClient.client.findFirst({
+    const client = await prismaClient.client.findMany({
       where: {
-        cnpjcpf: cnpjcpf
+        cnpjcpf: {
+          startsWith: cnpjcpf
+        }
         //id: client_id
       },
       select: {
@@ -26,7 +32,7 @@ class DetailClientService {
       }
     })
 
-    return { client };
+    return client;
   }
 }
 

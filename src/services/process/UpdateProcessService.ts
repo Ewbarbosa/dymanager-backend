@@ -44,8 +44,7 @@ class UpdateProcessService {
         distributed_at: distributed_at,
         cause_value: cause_value,
         status: status,
-        observation: observation,
-        client_id: client_id
+        observation: observation,        
       }
     })
 

@@ -3,6 +3,7 @@ import prismaClient from "../../prisma";
 // aqui é criado uma interface do tipo clientRequest
 interface ClientRequest {
   name: string;
+  rg: string;
   cnpjcpf: string;
   sex: string;
   nationality: string;
@@ -11,12 +12,13 @@ interface ClientRequest {
   telephone2: string;
   email: string;
   status: string;
+  user_id: number;
 }
 
 class CreateClientService {
 
   // funcao main/principal da classe
-  async execute({ name, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status }: ClientRequest) {
+  async execute({ name, rg, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status, user_id }: ClientRequest) {
 
     // verifica se os campos foram preenchidos
     //if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
@@ -27,6 +29,7 @@ class CreateClientService {
     const client = await prismaClient.client.create({
       data: {
         name: name,
+        rg: rg,
         cnpjcpf: cnpjcpf,
         sex: sex,
         nationality: nationality,
@@ -34,7 +37,8 @@ class CreateClientService {
         telephone: telephone,
         telephone2: telephone2,
         email: email,        
-        status: status
+        status: status,
+        user_id: user_id
       },
       select:{
         id: true,

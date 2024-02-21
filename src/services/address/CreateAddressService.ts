@@ -6,11 +6,12 @@ interface AddressRequest {
   district: string;
   city: string;
   state: string;
+  user_id: number;
   client_id: number;
 }
 
 class CreateAddressService {
-  async execute({ street, zip_code, district, city, state, client_id }: AddressRequest) {
+  async execute({ street, zip_code, district, city, state, user_id, client_id }: AddressRequest) {
     
     //if ( street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id){
     //  throw new Error('Mandatory fields must be filled')
@@ -24,7 +25,8 @@ class CreateAddressService {
         district: district,
         city: city,
         state: state,
-        client_id: client_id        
+        user_id: user_id,
+        client_id: client_id
       },
       select:{
         street: true,

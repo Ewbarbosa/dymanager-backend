@@ -10,17 +10,17 @@ interface ProcessRequest {
   cause_value: number;
   status: string;
   observation: string;
-  client_id: number;
+  user_id: number
 }
 
 class CreateProcessService {
 
-  async execute({ forum, number, court_division, action, distributed_at, cause_value, status, observation, client_id }: ProcessRequest) {
+  async execute({ forum, number, court_division, action, distributed_at, cause_value, status, observation, user_id }: ProcessRequest) {
 
     // verifica se os campos foram preenchidos
-    if (forum === '' || number === '' || court_division === '' || action === '' || !distributed_at || !cause_value || status === '' || observation === '' || !client_id) {
-      throw new Error('Mandatory fields must be filled');
-    }
+    //if (forum === '' || number === '' || court_division === '' || action === '' || !distributed_at || !cause_value || status === '' || observation === '' || !client_id) {
+    //  throw new Error('Mandatory fields must be filled');
+    //}
 
     const process = await prismaClient.process.create({
       data: {
@@ -31,15 +31,15 @@ class CreateProcessService {
         distributed_at: distributed_at,
         cause_value: cause_value,
         status: status,
-        observation: observation,
-        client_id: client_id
+        observation: observation,        
+        user_id: user_id
       },
       select: {
         id: true,
         forum: true,
         number: true
       }
-    })
+    })    
 
     return process;
   }

@@ -21,6 +21,7 @@ import { CreateProcessController } from './controllers/process/CreateProcessCont
 import { DetailProcessController } from './controllers/process/DetailProcessController';
 import { DeleteProcessController } from './controllers/process/DeleteProcessController';
 import { UpdateProcessController } from './controllers/process/UpdateProcessController';
+import { CreateClientProcessController } from './controllers/process/CreateClientProcessController';
 
 // middleware
 import { isAuthenticated } from './middlewares/isAuthenticated';
@@ -51,6 +52,7 @@ router.get('/process', isAuthenticated, new DetailProcessController().handle);
 router.post('/process', isAuthenticated, new CreateProcessController().handle);
 router.delete('/process', isAuthenticated, new DeleteProcessController().handle);
 router.put('/process', isAuthenticated, new UpdateProcessController().handle);
+router.post('/clientprocess', isAuthenticated, new CreateClientProcessController().handle);
 
 // se quiser lançar uma exceção como erro utilizar a linha abaixo
 //throw new Error('Erro ao fazer essa requisição.')
