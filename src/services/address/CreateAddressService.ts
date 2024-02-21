@@ -24,17 +24,18 @@ class CreateAddressService {
         zip_code: zip_code,
         district: district,
         city: city,
-        state: state,
+        state: state,        
+        client_id: client_id,
         user_id: user_id,
-        client_id: client_id
       },
       select:{
         street: true,
         zip_code: true,
         district: true,
         city: true,
-        state: true,
-        client_id: true        
+        state: true,        
+        client_id: true,
+        user_id: true
       }
     })  
   

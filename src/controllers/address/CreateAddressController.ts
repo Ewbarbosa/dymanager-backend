@@ -13,9 +13,9 @@ class CreateAddresController {
       zip_code,
       district,
       city,
-      state,
+      state,      
+      client_id,
       user_id,
-      client_id
     });
 
     return res.json(address);
