@@ -206,3 +206,7 @@ model Bank_account {
 
   @@map("bank_account")
 }
+
+
+
+// Anotação apenas
