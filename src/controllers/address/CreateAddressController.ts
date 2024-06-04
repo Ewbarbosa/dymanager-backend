@@ -4,7 +4,7 @@ import { CreateAddressService } from '../../services/address/CreateAddressServic
 class CreateAddresController {
   async handle(req: Request, res: Response) {
 
-    const { street, zip_code, district, city, state, user_id, client_id } = req.body;
+    const { street, zip_code, district, city, state, user_id, person_id } = req.body;
 
     const createAddressService = new CreateAddressService();
 
@@ -14,7 +14,7 @@ class CreateAddresController {
       district,
       city,
       state,      
-      client_id,
+      person_id,
       user_id,
     });
 

@@ -2,7 +2,7 @@ import prismaClient from "../../prisma";
 
 class ListAddressService {
 
-  async execute(client_id: number){
+  async execute(person_id: number){
 
     const address = await prismaClient.address.findMany({
       select: {
@@ -12,10 +12,10 @@ class ListAddressService {
         district: true,
         city: true,
         state: true,
-        client_id: true
+        person_id: true
       },
       where:{
-        client_id: client_id,
+        person_id: person_id,
       }
     })
 

@@ -1,7 +1,7 @@
 import prismaClient from "../../prisma";
 
-// aqui é criado uma interface do tipo clientRequest
-interface ClientRequest {
+// aqui é criado uma interface do tipo personRequest
+interface PersonRequest {
   name: string;
   rg: string;
   cnpjcpf: string;
@@ -11,22 +11,33 @@ interface ClientRequest {
   telephone: string;
   telephone2: string;
   email: string;
+  type: string;
   status: string;
   user_id: number;
 }
 
-class CreateClientService {
+class CreatePersonService {
 
   // funcao main/principal da classe
-  async execute({ name, rg, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, status, user_id }: ClientRequest) {
+  async execute({ name, rg, cnpjcpf, sex, nationality, born_in, telephone, telephone2, email, type, status, user_id }: PersonRequest) {
 
     // verifica se os campos foram preenchidos
     //if ( name === '' || cnpjcpf === '' || sex === '' || nationality === '' || !born_in || telephone === '' || email === ''){
     //  throw new Error('Mandatory fields must be filled')
     //}
 
+    const personAlreadyExists = await prismaClient.person.findFirst({
+      where: {
+        cnpjcpf: cnpjcpf
+      }
+    });
+
+    if(personAlreadyExists){
+      throw new Error("CPF/CNPJ já cadastrado");
+    }
+
     // recebe os campos e usa o metodo create pra gravar no banco de dados
-    const client = await prismaClient.client.create({
+    const person = await prismaClient.person.create({
       data: {
         name: name,
         rg: rg,
@@ -36,7 +47,8 @@ class CreateClientService {
         born_in: born_in,
         telephone: telephone,
         telephone2: telephone2,
-        email: email,        
+        email: email,
+        type: type,
         status: status,
         user_id: user_id
       },
@@ -47,9 +59,9 @@ class CreateClientService {
       }
     });
 
-    return client;
+    return person;
   }
 
 }
 
-export { CreateClientService }
+export { CreatePersonService }

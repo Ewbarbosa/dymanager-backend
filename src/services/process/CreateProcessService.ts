@@ -25,7 +25,7 @@ class CreateProcessService {
     const process = await prismaClient.process.create({
       data: {
         forum: forum,
-        number: number,
+        number_process: number,
         court_division: court_division,
         action: action,
         distributed_at: distributed_at,
@@ -37,7 +37,7 @@ class CreateProcessService {
       select: {
         id: true,
         forum: true,
-        number: true
+        number_process: true
       }
     })    
 

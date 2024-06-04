@@ -5,11 +5,11 @@ class ListAddresController{
 
   async handle(req: Request, res: Response){
 
-    const { client_id } = req.body;
+    const { person_id } = req.query;
 
     const listAddressService = new ListAddressService();
 
-    const address = await listAddressService.execute(client_id);
+    const address = await listAddressService.execute(parseInt(person_id as string));
 
     return res.json(address);
   }

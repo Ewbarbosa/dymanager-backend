@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
-import { CreateClientService } from '../../services/client/CreateClientService'
 
-class CreateClientController {
+import { CreatePersonService } from '../../services/person/CreatePersonService';
+
+class CreatePersonController {
 
   async handle(req: Request, res: Response){
     const {
@@ -14,13 +15,14 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
+      type,
       status,
       user_id
     } = req.body;
 
-    const createClientService = new CreateClientService();
-
-    const client = await createClientService.execute({
+    const createPersonService = new CreatePersonService();
+        
+    const person = await createPersonService.execute({
       name, 
       rg,
       cnpjcpf, 
@@ -30,12 +32,13 @@ class CreateClientController {
       telephone, 
       telephone2,
       email,
+      type,
       status,
       user_id
     });
     
-    return res.json(client);
+    return res.json(person);
   }
 }
 
-export { CreateClientController }
+export { CreatePersonController }

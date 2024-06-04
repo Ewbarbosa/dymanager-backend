@@ -22,7 +22,7 @@ class DeleteAddressService {
         },
       })
 
-      return {address};
+      return address;
 
     } catch (error) {
       console.log('catch')

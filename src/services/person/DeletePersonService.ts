@@ -12,17 +12,17 @@ class UserTypeError extends Error {
   }
 }
 
-class DeleteClientService {
+class DeletePersonService {
   async execute(cnpjcpf: string) {
 
     try {
-      const client = await prismaClient.client.delete({
+      const person = await prismaClient.person.delete({
         where: {
           cnpjcpf: cnpjcpf,
         },
       })
 
-      return { client }
+      return { person }
 
     } catch(error) {
       throw new UserTypeError('Unable to delete record.');
@@ -31,4 +31,4 @@ class DeleteClientService {
   }
 }
 
-export { DeleteClientService }
+export { DeletePersonService }

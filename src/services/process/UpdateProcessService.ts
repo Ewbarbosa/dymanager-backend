@@ -38,7 +38,7 @@ class UpdateProcessService {
       },
       data: {
         forum: forum,
-        number: number,
+        number_process: number,
         court_division: court_division,
         action: action,
         distributed_at: distributed_at,

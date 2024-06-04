@@ -20,7 +20,7 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  clients Client[] // criado por user id tal // relação 1 - n
+  person  Person[] // criado por user id tal // relação 1 - n
   calls   Call[]
   process Process[]
   address Address[]
@@ -28,7 +28,7 @@ model User {
   @@map("users")
 }
 
-model Client {
+model Person {
   id                 Int       @id @default(autoincrement())
   name               String? // nome completo
   rg                 String? // rg
@@ -43,7 +43,8 @@ model Client {
   work_card          String? // carteira de trabalho
   pis                String? // pis
   parent_affiliation String? // nome da mãe
-  mother_affiliation String? // nome do pai  
+  mother_affiliation String? // nome do pai
+  type               String? // cliente ou adverso
   status             String? // ativo ou inativo
 
   user    User @relation(fields: [user_id], references: [id])
@@ -57,10 +58,10 @@ model Client {
   calls             Call[] // atendimentos
   loans             Loan[] // emprestimos
   bank_account      Bank_account[] // conta em banco
-  //process           Process[] // processos
-  ClientProcess     ClientProcess[]
 
-  @@map("clients")
+  PersonProcess PersonProcess[]
+
+  @@map("persons")
 }
 
 model Professional_Data {
@@ -73,8 +74,8 @@ model Professional_Data {
   last_day       DateTime? // último dia trabalhado
   observation    String?
 
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int
 
   @@map("professional_data")
 }
@@ -82,7 +83,7 @@ model Professional_Data {
 model Process {
   id             Int       @id @default(autoincrement())
   forum          String? // forum
-  number         String    @unique // numero do processo
+  number_process String    @unique // numero do processo
   court_division String? // vara
   action         String? // ação
   distributed_at DateTime?
@@ -98,22 +99,23 @@ model Process {
 
   //client_id Int
   //client Client @relation(fields: [client_id], references: [id])  
-  ClientProcess ClientProcess[]
+  PersonProcess PersonProcess[]
 
   @@map("process")
 }
 
-model ClientProcess {
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
+// relacionamento n para n
+model PersonProcess {
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int
 
   process    Process @relation(fields: [process_id], references: [id])
   process_id Int
 
   created_at DateTime @default(now())
 
-  @@id([client_id, process_id])
-  @@map("client_process")
+  @@id([person_id, process_id])
+  @@map("person_process")
 }
 
 model Address {
@@ -127,8 +129,8 @@ model Address {
   // aqui está o relacionamento
   // a tabela cliente pode ter varios endereços
   // o campo client_id é chave estrangeira
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int
 
   user    User @relation(fields: [user_id], references: [id])
   user_id Int
@@ -143,8 +145,8 @@ model Call {
   contact_channel String?
 
   // relations
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int
 
   user    User @relation(fields: [user_id], references: [id])
   user_id Int
@@ -173,8 +175,8 @@ model Loan {
   call    Call @relation(fields: [call_id], references: [id])
   call_id Int  @unique
 
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int
 
   @@map("loans")
 }
@@ -201,12 +203,10 @@ model Bank_account {
   bank    Bank @relation(fields: [bank_id], references: [id])
   bank_id Int // código do banco
 
-  client    Client @relation(fields: [client_id], references: [id])
-  client_id Int // id do cliente  
+  person    Person @relation(fields: [person_id], references: [id])
+  person_id Int // id do cliente  
 
   @@map("bank_account")
 }
-
-
 
 // Anotação apenas

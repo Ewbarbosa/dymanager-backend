@@ -15,7 +15,7 @@ class DetailProcessService {
       select: {
         id: true,
         forum: true,
-        number: true,
+        number_process: true,
         court_division: true,
         action: true,
         distributed_at: true,

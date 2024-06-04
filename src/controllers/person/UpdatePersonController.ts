@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { UpdateClientService } from '../../services/client/UpdateClientService'
+import { UpdatePersonService } from '../../services/person/UpdatePersonService'
 
-class UpdateClientController {
+class UpdatePersonController {
 
   async handle(req: Request, res: Response){
 
@@ -18,9 +18,9 @@ class UpdateClientController {
       status
     } = req.body;
 
-    const updateClientService = new UpdateClientService();
+    const updatePersonService = new UpdatePersonService();
 
-    const client = await updateClientService.execute({
+    const person = await updatePersonService.execute({
       id,
       name,
       cnpjcpf,
@@ -33,9 +33,9 @@ class UpdateClientController {
       status
     })
 
-    return res.json(client);
+    return res.json(person);
   }
 
 }
 
-export { UpdateClientController }
+export { UpdatePersonController }

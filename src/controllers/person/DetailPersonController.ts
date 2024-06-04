@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { DetailClientService } from '../../services/client/DetailClientService'
+import { DetailPersonService } from '../../services/person/DetailPersonService';
 
 class DetailClientController {
   async handle(req: Request, res: Response) {
@@ -12,11 +12,11 @@ class DetailClientController {
     }
 
     // instancia da classe
-    const detailClientService = new DetailClientService();
+    const detailPersonService = new DetailPersonService();
 
-    const client = await detailClientService.execute({ cnpjcpf });
+    const person = await detailPersonService.execute({ cnpjcpf });
 
-    return res.json(client);
+    return res.json(person);
   }
 }
 
