@@ -28,7 +28,7 @@ model User {
   process Process[]
   address Address[]  
 
-  @@map("Users")
+  @@map("users")
 }
 
 // Tabela Profile para gerenciamento de acessos
@@ -36,13 +36,13 @@ model Profile {
   id                Int       @id @default(autoincrement())
   name              String    @unique // Nome do perfil (ex: Admin, User, Manager)
   description       String?   // Descrição do perfil (opcional)
-  permissions       Json      // JSON com lista de permissões (opcional)
-  createdAt         DateTime  @default(now()) // Data de criação
-  updatedAt         DateTime  @updatedAt      // Data da última atualização
+  permissions       Json?      // JSON com lista de permissões (opcional)
+  createdAt         DateTime?  @default(now()) // Data de criação
+  updatedAt         DateTime?  @updatedAt      // Data da última atualização
 
   users             User[]    // Relacionamento reverso com User
 
-  @@map("Profiles") // Nome da tabela no banco de dados
+  @@map("profiles") // Nome da tabela no banco de dados
 }
 
 // Tabela para Pessoa Física
@@ -82,7 +82,7 @@ model Contact {
   Bank_account   BankAccount[]
 
   @@index([cpfCnpj], name: "cpf_index")
-  @@map("Contacts")
+  @@map("contacts")
 }
 
 // Enum para o campo gender
@@ -124,7 +124,7 @@ model Process {
   //client Client @relation(fields: [client_id], references: [id])  
   ContactProcess ContactProcess[]
 
-  @@map("Processes")
+  @@map("processes")
 }
 
 // relacionamento n para n
@@ -138,7 +138,7 @@ model ContactProcess {
   createdAt DateTime @default(now())
 
   @@id([contactId, processId])
-  @@map("ContactProcess")
+  @@map("contactProcess")
 }
 
 model Address {
@@ -158,7 +158,7 @@ model Address {
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
-  @@map("Addresses")
+  @@map("addresses")
 }
 
 model Call {
@@ -176,7 +176,7 @@ model Call {
 
   loan Loan?
 
-  @@map("Calls")
+  @@map("calls")
 }
 
 model Loan {
@@ -201,7 +201,7 @@ model Loan {
   contact   Contact @relation(fields: [contactId], references: [id])
   contactId Int
 
-  @@map("Loans")
+  @@map("loans")
 }
 
 model Bank {
@@ -212,7 +212,7 @@ model Bank {
   // relations
   bankAccount BankAccount[]
 
-  @@map("Banks")
+  @@map("banks")
 }
 
 model BankAccount {
@@ -229,7 +229,7 @@ model BankAccount {
   contact   Contact @relation(fields: [contactId], references: [id])
   contactId Int // id do cliente  
 
-  @@map("BanAccounts")
+  @@map("banAccounts")
 }
 
 // Anotação apenas
