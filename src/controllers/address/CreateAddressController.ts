@@ -4,18 +4,18 @@ import { CreateAddressService } from '../../services/address/CreateAddressServic
 class CreateAddresController {
   async handle(req: Request, res: Response) {
 
-    const { street, zip_code, district, city, state, user_id, person_id } = req.body;
+    const { street, postalCode, district, city, state, contactId, userId } = req.body;
 
     const createAddressService = new CreateAddressService();
 
     const address = await createAddressService.execute({
       street,
-      zip_code,
+      postalCode,
       district,
       city,
-      state,      
-      person_id,
-      user_id,
+      state,
+      contactId,
+      userId,
     });
 
     return res.json(address);

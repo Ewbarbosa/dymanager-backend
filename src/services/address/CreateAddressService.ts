@@ -2,40 +2,36 @@ import prismaClient from "../../prisma";
 
 interface AddressRequest {
   street: string;
-  zip_code: string;
+  postalCode: string;
   district: string;
   city: string;
   state: string;  
-  person_id: number;
-  user_id: number;
+  contactId: number;
+  userId: number;
 }
 
 class CreateAddressService {
-  async execute({ street, zip_code, district, city, state, person_id, user_id }: AddressRequest) {
-    
-    //if ( street === '' || zip_code === '' || district === '' || city === '' || state === '' || !client_id){
-    //  throw new Error('Mandatory fields must be filled')
-    //}
+  async execute({ street, postalCode, district, city, state, contactId, userId }: AddressRequest) {
 
     // recebe os campos e usa o metodo create pra salvar no banco
     const address = await prismaClient.address.create({
       data:{
         street: street,
-        zip_code: zip_code,
+        postalCode: postalCode,
         district: district,
         city: city,
         state: state,        
-        person_id: person_id,
-        user_id: user_id 
+        contactId: contactId,
+        userId: userId 
       },
       select:{
         street: true,
-        zip_code: true,
+        postalCode: true,
         district: true,
         city: true,
         state: true,        
-        person_id: true,
-        user_id: true
+        contactId: true,
+        userId: true
       }
     })  
   

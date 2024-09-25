@@ -35,7 +35,7 @@ export function isAuthenticated(
     // validação do token
 
     // o metodo verify é usado para validar o token e passar o resultado para o objeto
-    // sub é o ID do usuario que foi passando AuthUserService.ts
+    // sub é o ID do usuario que foi passado AuthUserService.ts
     const { sub } = verify(
       token,
       process.env.JWT_SECRET

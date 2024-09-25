@@ -7,7 +7,7 @@ class ListProcessService {
       select: {
         id: true,
         forum: true,
-        number_process: true
+        processNumber: true
       }
     })
 

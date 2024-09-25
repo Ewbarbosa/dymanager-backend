@@ -1,29 +1,29 @@
 import prismaClient from "../../prisma"
 
-interface PersonProcessProps {
-  person_id: number;
-  process_id: number;
+interface ContactProcessProps {
+  contactId: number;
+  processId: number;
 }
 
-class CreatePersonProcessService {
+class CreateContactProcessService {
 
-  async execute({person_id, process_id}: PersonProcessProps) {
+  async execute({ contactId, processId }: ContactProcessProps) {
 
-    const personProcess = await prismaClient.personProcess.create({
-      data: {
-        person_id: person_id,
-        process_id: process_id
+    const contactProcess = await prismaClient.contactProcess.create({
+      data: {        
+        contactId,
+        processId
       },
       select: {
-        person_id: true,
-        process_id: true,
-        created_at: true
+        contactId: true,
+        processId: true,
+        createdAt: true
       }
     })
 
-    return personProcess;
+    return contactProcess;
   }
 
 }
 
-export { CreatePersonProcessService }
+export { CreateContactProcessService }

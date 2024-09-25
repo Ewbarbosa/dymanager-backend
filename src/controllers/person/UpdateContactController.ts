@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
+import { UpdateContactService } from '../../services/contact/UpdateContactService'
 
-import { CreateContactService } from '../../services/contact/CreateContactService';
+class UpdateContactController {
 
-class CreateContactController {
+  async handle(req: Request, res: Response) {
 
-  async handle(req: Request, res: Response){
     const {
+      id,
       cpfCnpj,
       fullName,
       rg,
@@ -25,13 +26,13 @@ class CreateContactController {
       stateRegistration,
       municipalRegistration,
       responsiblePerson,
-      responsibleCpf,
-      userId
+      responsibleCpf
     } = req.body;
 
-    const createPersonService = new CreateContactService();
-        
-    const contact = await createPersonService.execute({
+    const updatePersonService = new UpdateContactService();
+
+    const contact = await updatePersonService.execute({
+      id,
       cpfCnpj,
       fullName,
       rg,
@@ -51,12 +52,12 @@ class CreateContactController {
       stateRegistration,
       municipalRegistration,
       responsiblePerson,
-      responsibleCpf,
-      userId
-    });
-    
+      responsibleCpf
+    })
+
     return res.json(contact);
   }
+
 }
 
-export { CreateContactController }
+export { UpdateContactController }

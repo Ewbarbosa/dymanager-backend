@@ -20,165 +20,188 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  person  Person[] // criado por user id tal // relação 1 - n
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId Int
+
+  contact Contact[]
   calls   Call[]
   process Process[]
-  address Address[]
+  address Address[]  
 
-  @@map("users")
+  @@map("Users")
 }
 
-model Person {
-  id                 Int       @id @default(autoincrement())
-  name               String? // nome completo
-  rg                 String? // rg
-  cnpjcpf            String    @unique // cpf ou cnpj
-  sex                String? // sexo
-  nationality        String? // nacionalidade
-  born_in            DateTime? // nascimento
-  marital_status     String? // estado civil
-  telephone          String? // telefone
-  telephone2         String? // telefone 2
-  email              String? // email pessoal
-  work_card          String? // carteira de trabalho
-  pis                String? // pis
-  parent_affiliation String? // nome da mãe
-  mother_affiliation String? // nome do pai
-  type               String? // cliente ou adverso
-  status             String? // ativo ou inativo
+// Tabela Profile para gerenciamento de acessos
+model Profile {
+  id                Int       @id @default(autoincrement())
+  name              String    @unique // Nome do perfil (ex: Admin, User, Manager)
+  description       String?   // Descrição do perfil (opcional)
+  permissions       Json      // JSON com lista de permissões (opcional)
+  createdAt         DateTime  @default(now()) // Data de criação
+  updatedAt         DateTime  @updatedAt      // Data da última atualização
 
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int // criado por user id tal // relação 1 - n
+  users             User[]    // Relacionamento reverso com User
 
-  created_at DateTime? @default(now()) // criado em
-  updated_at DateTime? @default(now()) // atualizado em  
-
-  address           Address[] // endereço
-  professional_data Professional_Data[] // dados profissionais
-  calls             Call[] // atendimentos
-  loans             Loan[] // emprestimos
-  bank_account      Bank_account[] // conta em banco
-
-  PersonProcess PersonProcess[]
-
-  @@map("persons")
+  @@map("Profiles") // Nome da tabela no banco de dados
 }
 
-model Professional_Data {
-  id             Int       @id @default(autoincrement())
-  company        String? // empresa onde trabalha
-  office         String? // profissão
-  salary         Float? // salário
-  admission_at   DateTime? // data de admissão
-  resignation_at DateTime? // data de demissão
-  last_day       DateTime? // último dia trabalhado
-  observation    String?
+// Tabela para Pessoa Física
+model Contact {
+  id                    Int            @id @default(autoincrement())
+  cpfCnpj               String         @unique // CPF único e obrigatório
+  fullName              String // Nome completo
+  rg                    String? // Registro Geral (opcional)
+  dateOfBirth           DateTime // Data de nascimento
+  gender                Gender? // Sexo (enum)
+  nationality           String? // Nacionalidade
+  maritalStatus         MaritalStatus? // Estado civil (opcional)
+  phone                 String? // Telefone (opcional)
+  email                 String? // E-mail (opcional)
+  occupation            String? // Profissão (opcional)  
+  workCard              String?
+  pisNumber             String?
+  fatherName            String?
+  motherName            String?
+  companyName           String // Razão Social  
+  tradeName             String? // Nome Fantasia (opcional)
+  stateRegistration     String? // Inscrição Estadual (opcional)
+  municipalRegistration String? // Inscrição Municipal (opcional)
+  responsiblePerson     String? // Nome do responsável (opcional)
+  responsibleCpf        String? // CPF do responsável (opcional)
 
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@map("professional_data")
+  user   User @relation(fields: [userId], references: [id])
+  userId Int // criado pelo userId // relação 1 - n
+
+  address        Address[] // endereço
+  ContactProcess ContactProcess[]
+  Call           Call[]
+  Loan           Loan[]
+  Bank_account   BankAccount[]
+
+  @@index([cpfCnpj], name: "cpf_index")
+  @@map("Contacts")
+}
+
+// Enum para o campo gender
+enum Gender {
+  MALE // Masculino
+  FEMALE // Feminino
+  OTHER // Outro
+  NOT_SPECIFIED // Não informado
+}
+
+// Enum para o estado civil
+enum MaritalStatus {
+  SINGLE // Solteiro(a)
+  MARRIED // Casado(a)
+  DIVORCED // Divorciado(a)
+  WIDOWED // Viúvo(a)
+  SEPARATED // Separado(a)
+  OTHER // Outro
 }
 
 model Process {
-  id             Int       @id @default(autoincrement())
-  forum          String? // forum
-  number_process String    @unique // numero do processo
-  court_division String? // vara
-  action         String? // ação
-  distributed_at DateTime?
-  cause_value    Float?
-  status         String?
-  observation    String?
+  id            Int       @id @default(autoincrement())
+  forum         String? // forum
+  processNumber String    @unique // numero do processo
+  courtDivision String? // vara
+  action        String? // ação
+  distributedAt DateTime?
+  causeValue    Float?
+  status        String?
+  observation   String?
 
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   //client    Client @relation(fields: [client_id], references: [id])
   //client_id Int // criado por user id tal // relação 1 - n
 
   //client_id Int
   //client Client @relation(fields: [client_id], references: [id])  
-  PersonProcess PersonProcess[]
+  ContactProcess ContactProcess[]
 
-  @@map("process")
+  @@map("Processes")
 }
 
 // relacionamento n para n
-model PersonProcess {
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int
+model ContactProcess {
+  contact  Contact @relation(fields: [contactId], references: [id])
+  contactId Int
 
-  process    Process @relation(fields: [process_id], references: [id])
-  process_id Int
+  process   Process @relation(fields: [processId], references: [id])
+  processId Int
 
-  created_at DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  @@id([person_id, process_id])
-  @@map("person_process")
+  @@id([contactId, processId])
+  @@map("ContactProcess")
 }
 
 model Address {
-  id       Int     @id @default(autoincrement())
-  street   String? // rua com numero
-  zip_code String? // cep
-  district String? // bairro
-  city     String? // cidade
-  state    String? // estado
+  id         Int     @id @default(autoincrement())
+  street     String? // rua com numero
+  postalCode String? // cep
+  district   String? // bairro
+  city       String? // cidade
+  state      String? // estado
 
   // aqui está o relacionamento
   // a tabela cliente pode ter varios endereços
   // o campo client_id é chave estrangeira
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int
 
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
-  @@map("address")
+  @@map("Addresses")
 }
 
 model Call {
-  id              Int       @id @default(autoincrement())
-  start           DateTime? @default(now())
-  end             DateTime? @default(now())
-  contact_channel String?
+  id             Int       @id @default(autoincrement())
+  start          DateTime? @default(now())
+  end            DateTime? @default(now())
+  contactChannel String?
 
   // relations
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int
 
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   loan Loan?
 
-  @@map("calls")
+  @@map("Calls")
 }
 
 model Loan {
-  id             Int       @id @default(autoincrement())
-  n_installments Int // numero de parcelas
-  v_installments Float // valor das parcelas
-  amount         Float
-  start          DateTime
-  end            DateTime
-  created_at     DateTime? @default(now())
-  updated_at     DateTime? @default(now())
-  category       String
+  id            Int       @id @default(autoincrement())
+  nInstallments Int // numero de parcelas
+  vInstallments Float // valor das parcelas
+  amount        Float
+  start         DateTime
+  end           DateTime
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @default(now())
+  category      String
 
   // relations  
-  bank_account    Bank_account @relation(fields: [bank_account_id], references: [id])
-  bank_account_id Int          @unique
+  bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
+  bankAccountId Int         @unique
 
   // one to one
-  call    Call @relation(fields: [call_id], references: [id])
-  call_id Int  @unique
+  call   Call @relation(fields: [callId], references: [id])
+  callId Int  @unique
 
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int
 
-  @@map("loans")
+  @@map("Loans")
 }
 
 model Bank {
@@ -187,12 +210,12 @@ model Bank {
   code Int // codigo do banco
 
   // relations
-  bank_account Bank_account[]
+  bankAccount BankAccount[]
 
-  @@map("banks")
+  @@map("Banks")
 }
 
-model Bank_account {
+model BankAccount {
   id      Int @id @default(autoincrement())
   agency  Int // agencia
   account Int // conta
@@ -200,13 +223,13 @@ model Bank_account {
   // aqui é uma relação entre tabelas
   loan Loan?
 
-  bank    Bank @relation(fields: [bank_id], references: [id])
-  bank_id Int // código do banco
+  bank   Bank @relation(fields: [bankId], references: [id])
+  bankId Int // código do banco
 
-  person    Person @relation(fields: [person_id], references: [id])
-  person_id Int // id do cliente  
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int // id do cliente  
 
-  @@map("bank_account")
+  @@map("BanAccounts")
 }
 
 // Anotação apenas

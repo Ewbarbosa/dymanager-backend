@@ -7,10 +7,11 @@ interface UserRequest {
   name: string;
   email: string;
   password: string;
+  profileId?: number;
 }
 
 class CreateUserService {
-  async execute({ name, email, password }: UserRequest) {
+  async execute({ name, email, password, profileId }: UserRequest) {
 
     // verifica se enviou um email
     if (!email) {
@@ -35,6 +36,7 @@ class CreateUserService {
         name: name,
         email: email,
         password: passwordHash,
+        profileId: profileId
       },
       select: {
         id: true,

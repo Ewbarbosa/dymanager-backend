@@ -12,13 +12,13 @@ class UserTypeError extends Error {
   }
 }
 
-class DeletePersonService {
-  async execute(cnpjcpf: string) {
+class DeleteContactService {
+  async execute(cpfCnpj: string) {
 
     try {
-      const person = await prismaClient.person.delete({
+      const person = await prismaClient.contact.delete({
         where: {
-          cnpjcpf: cnpjcpf,
+          cpfCnpj: cpfCnpj,
         },
       })
 
@@ -31,4 +31,4 @@ class DeletePersonService {
   }
 }
 
-export { DeletePersonService }
+export { DeleteContactService }

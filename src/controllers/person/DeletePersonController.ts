@@ -1,17 +1,17 @@
 import { Request, Response } from 'express'
-import { DeletePersonService } from '../../services/person/DeletePersonService';
+import { DeleteContactService } from '../../services/contact/DeleteContactService';
 
-class DeletePersonController {
+class DeleteContactController {
   async handle(req: Request, res: Response){
 
-    const { cnpjcpf } = req.body;
+    const { cpfCnpj } = req.body;
     
-    const deletePersonService = new DeletePersonService();
+    const deleteContactService = new DeleteContactService();
 
-    const client = await deletePersonService.execute(cnpjcpf);
+    const client = await deleteContactService.execute(cpfCnpj);
     
     return res.json(client);
   }
 }
 
-export { DeletePersonController }
+export { DeleteContactController }

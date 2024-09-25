@@ -1,17 +1,15 @@
 import { Request, Response } from 'express'
-import { ListPersonService } from '../../services/person/ListPersonService'
+import { ListContactService } from '../../services/contact/ListContactService'
 
-class ListPersonController {
+class ListContactController {
   async handle(req: Request, res: Response) {
 
-    const listPersonService = new ListPersonService();
+    const lisContactService = new ListContactService();
 
-    const persons = await listPersonService.execute();
+    const contats = await lisContactService.execute();
 
-    //console.log(persons);
-
-    return res.json(persons);
+    return res.json(contats);
   }
 }
 
-export { ListPersonController }
+export { ListContactController }

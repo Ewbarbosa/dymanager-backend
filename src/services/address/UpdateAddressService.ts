@@ -3,7 +3,7 @@ import prismaClient from "../../prisma";
 interface AddressRequest {
   id: number;
   street: string;
-  zip_code: string;
+  postalCode: string;
   district: string;
   city: string;
   state: string;
@@ -11,7 +11,7 @@ interface AddressRequest {
 
 class UpdateAddressService {
 
-  async execute({id, street, zip_code, district, city, state}: AddressRequest){
+  async execute({id, street, postalCode, district, city, state}: AddressRequest){
 
     const address = await prismaClient.address.update({
       where: {
@@ -19,7 +19,7 @@ class UpdateAddressService {
       },
       data:{
         street: street,
-        zip_code: zip_code,
+        postalCode: postalCode,
         district: district,
         city: city,
         state: state

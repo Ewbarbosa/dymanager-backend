@@ -2,20 +2,20 @@ import prismaClient from "../../prisma";
 
 class ListAddressService {
 
-  async execute(person_id: number){
+  async execute(contactId: number){
 
     const address = await prismaClient.address.findMany({
       select: {
         id: true,
         street: true,
-        zip_code: true,
+        postalCode: true,
         district: true,
         city: true,
         state: true,
-        person_id: true
+        contactId: true
       },
       where:{
-        person_id: person_id,
+        contactId: contactId,
       }
     })
 

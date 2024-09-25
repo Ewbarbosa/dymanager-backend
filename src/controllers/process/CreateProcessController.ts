@@ -5,31 +5,31 @@ class CreateProcessController {
   async handle(req: Request, res: Response) {
     const {
       forum,
-      number,
-      court_division,
+      processNumber,
+      courtDivision,
       action,
-      distributed_at,
+      distributedAt,
       cause_value,
       status,
       observation,
-      user_id
+      userId
     } = req.body;
 
     const createProcessService = new CreateProcessService();
 
     const process = await createProcessService.execute({
       forum,
-      number,
-      court_division,
+      processNumber,
+      courtDivision,
       action,
-      distributed_at,
+      distributedAt,
       cause_value,
       status,
       observation,
-      user_id
+      userId
     });
 
-    return res.json(process);
+    return res.status(201).json(process);    
   }
 }
 

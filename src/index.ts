@@ -23,9 +23,7 @@ app.use(router);
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
     // se for uma instancia do tipo erro
-    return res.status(400).json({
-      error: err.message
-    })
+    return res.status(400).json({error: err.message});
   }
 
   // se não for do tipo erro e mesmo assim é um erro cai nesse return

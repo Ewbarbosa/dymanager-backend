@@ -3,10 +3,10 @@ import prismaClient from "../../prisma";
 interface ProcessRequest {
   id: number;
   forum: string;
-  number: string;
-  court_division: string;
+  processNumber: string;
+  courtDivision: string;
   action: string;
-  distributed_at: Date;
+  distributedAt: Date;
   cause_value: number;
   status: string;
   observation: string;
@@ -17,10 +17,10 @@ class UpdateProcessService {
   async execute({
     id,
     forum,
-    number,
-    court_division,
+    processNumber,
+    courtDivision,
     action,
-    distributed_at,
+    distributedAt,
     cause_value,
     status,
     observation,
@@ -28,7 +28,7 @@ class UpdateProcessService {
   }: ProcessRequest) {
 
     // verifica se os campos foram preenchidos
-    if (forum === '' || number === '' || court_division === '' || action === '' || !distributed_at || !cause_value || status === '' || observation === '' || !client_id) {
+    if (forum === '' || processNumber === '' || courtDivision === '' || action === '' || !distributedAt || !cause_value || status === '' || observation === '' || !client_id) {
       throw new Error('Mandatory fields must be filled');
     }
 
@@ -38,13 +38,13 @@ class UpdateProcessService {
       },
       data: {
         forum: forum,
-        number_process: number,
-        court_division: court_division,
+        processNumber: processNumber,
+        courtDivision: courtDivision,
         action: action,
-        distributed_at: distributed_at,
-        cause_value: cause_value,
+        distributedAt: distributedAt,
+        causeValue: cause_value,
         status: status,
-        observation: observation,        
+        observation: observation,
       }
     })
 
