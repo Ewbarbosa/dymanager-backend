@@ -49,9 +49,9 @@ model Profile {
 model Contact {
   id                    Int            @id @default(autoincrement())
   cpfCnpj               String         @unique // CPF único e obrigatório
-  fullName              String // Nome completo
+  fullName              String? // Nome completo
   rg                    String? // Registro Geral (opcional)
-  dateOfBirth           DateTime // Data de nascimento
+  dateOfBirth           DateTime? // Data de nascimento
   gender                Gender? // Sexo (enum)
   nationality           String? // Nacionalidade
   maritalStatus         MaritalStatus? // Estado civil (opcional)
@@ -62,7 +62,7 @@ model Contact {
   pisNumber             String?
   fatherName            String?
   motherName            String?
-  companyName           String // Razão Social  
+  companyName           String? // Razão Social  
   tradeName             String? // Nome Fantasia (opcional)
   stateRegistration     String? // Inscrição Estadual (opcional)
   municipalRegistration String? // Inscrição Municipal (opcional)
@@ -75,11 +75,11 @@ model Contact {
   user   User @relation(fields: [userId], references: [id])
   userId Int // criado pelo userId // relação 1 - n
 
-  address        Address[] // endereço
+  Address        Address[] // endereço
   ContactProcess ContactProcess[]
   Call           Call[]
   Loan           Loan[]
-  Bank_account   BankAccount[]
+  BankAccount   BankAccount[]
 
   @@index([cpfCnpj], name: "cpf_index")
   @@map("contacts")
@@ -117,11 +117,6 @@ model Process {
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
-  //client    Client @relation(fields: [client_id], references: [id])
-  //client_id Int // criado por user id tal // relação 1 - n
-
-  //client_id Int
-  //client Client @relation(fields: [client_id], references: [id])  
   ContactProcess ContactProcess[]
 
   @@map("processes")

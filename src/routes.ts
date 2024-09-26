@@ -32,23 +32,23 @@ router.post('/session', new AuthUserController().handle);
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 
 // rotas clients
-router.post('/person', isAuthenticated, new CreateContactController().handle);
-router.get('/persons', isAuthenticated, new ListContactController().handle);
-router.put('/person', isAuthenticated, new UpdateContactController().handle)
-router.delete('/person', isAuthenticated, new DeleteContactController().handle);
+router.post('/contact', isAuthenticated, new CreateContactController().handle);
+router.get('/contacts', isAuthenticated, new ListContactController().handle);
+router.put('/contact', isAuthenticated, new UpdateContactController().handle)
+router.delete('/contact', isAuthenticated, new DeleteContactController().handle);
 
 // rotas address
-router.get('/person/address', isAuthenticated, new ListAddresController().handle);
-router.post('/person/address', isAuthenticated, new CreateAddresController().handle);
-router.put('/person/address', isAuthenticated, new UpdateAddressController().handle);
-router.delete('/person/address', isAuthenticated, new DeleteAddressController().handle);
+router.get('/contact/address', isAuthenticated, new ListAddresController().handle);
+router.post('/contact/address', isAuthenticated, new CreateAddresController().handle);
+router.put('/contact/address', isAuthenticated, new UpdateAddressController().handle);
+router.delete('/contact/address', isAuthenticated, new DeleteAddressController().handle);
 
 // rotas process
 router.get('/processes', isAuthenticated, new ListProcessController().handle);
 router.post('/process', isAuthenticated, new CreateProcessController().handle);
 router.delete('/process', isAuthenticated, new DeleteProcessController().handle);
 router.put('/process', isAuthenticated, new UpdateProcessController().handle);
-router.post('/personprocess', isAuthenticated, new CreateContactProcessController().handle);
+router.post('/contactprocess', isAuthenticated, new CreateContactProcessController().handle);
 
 // se quiser lançar uma exceção como erro utilizar a linha abaixo
 //throw new Error('Erro ao fazer essa requisição.')
