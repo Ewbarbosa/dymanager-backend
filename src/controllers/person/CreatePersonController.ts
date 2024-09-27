@@ -19,13 +19,7 @@ class CreateContactController {
       workCard,
       pisNumber,
       fatherName,
-      motherName,
-      companyName,
-      tradeName,
-      stateRegistration,
-      municipalRegistration,
-      responsiblePerson,
-      responsibleCpf,
+      motherName,      
       userId
     } = req.body;
 
@@ -45,13 +39,7 @@ class CreateContactController {
       workCard,
       pisNumber,
       fatherName,
-      motherName,
-      companyName,
-      tradeName,
-      stateRegistration,
-      municipalRegistration,
-      responsiblePerson,
-      responsibleCpf,
+      motherName,      
       userId
     });
     

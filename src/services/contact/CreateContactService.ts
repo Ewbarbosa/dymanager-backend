@@ -1,8 +1,8 @@
 import prismaClient from "../../prisma";
 
-export type Gender = 'MALE' | 'FEMALE' | 'OTHER' | 'NOT_SPECIFIED';
+export type Gender = 'MASCULINO' | 'FEMININO' | 'OUTRO';
 
-export type MaritalStatus = 'SINGLE' | 'MARRIED' | 'DIVORCED' | 'WIDOWED' | 'SEPARATED' | 'OTHER';
+export type MaritalStatus = 'SOLTEIRO' | 'CASADO' | 'DIVORCIADO' | 'VIUVO' | 'SEPARADO' | 'OUTRO';
 
 // aqui é criado uma interface do tipo ContactRequest
 interface ContactRequest {
@@ -19,15 +19,12 @@ interface ContactRequest {
   workCard?: string;
   pisNumber?: string;
   fatherName?: string;
-  motherName?: string;
-  companyName?: string;
-  tradeName?: string;
-  stateRegistration?: string;
-  municipalRegistration?: string;
-  responsiblePerson?: string;
-  responsibleCpf?: string;
-
+  motherName?: string;  
   userId: number;
+}
+
+interface ContactRequest {
+  cpfCnpj: string;
 }
 
 class CreateContactService {
@@ -48,13 +45,7 @@ class CreateContactService {
       workCard,
       pisNumber,
       fatherName,
-      motherName,
-      companyName,
-      tradeName,
-      stateRegistration,
-      municipalRegistration,
-      responsiblePerson,
-      responsibleCpf,
+      motherName,      
       userId
     }: ContactRequest) {
 
@@ -84,13 +75,7 @@ class CreateContactService {
         workCard,
         pisNumber,
         fatherName,
-        motherName,
-        companyName,
-        tradeName,
-        stateRegistration,
-        municipalRegistration,
-        responsiblePerson,
-        responsibleCpf,
+        motherName,        
         userId
       },
       select: {

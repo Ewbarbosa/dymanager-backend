@@ -87,20 +87,19 @@ model Contact {
 
 // Enum para o campo gender
 enum Gender {
-  MALE // Masculino
-  FEMALE // Feminino
-  OTHER // Outro
-  NOT_SPECIFIED // Não informado
+  MASCULINO // Masculino
+  FEMININO // Feminino
+  OUTRO // Outro  
 }
 
 // Enum para o estado civil
 enum MaritalStatus {
-  SINGLE // Solteiro(a)
-  MARRIED // Casado(a)
-  DIVORCED // Divorciado(a)
-  WIDOWED // Viúvo(a)
-  SEPARATED // Separado(a)
-  OTHER // Outro
+  SOLTEIRO // Solteiro(a)
+  CASADO // Casado(a)
+  DIVORCIADO // Divorciado(a)
+  VIUVO // Viúvo(a)
+  SEPARADO // Separado(a)
+  OUTRO // Outro
 }
 
 model Process {
