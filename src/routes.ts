@@ -38,10 +38,10 @@ router.put('/contact', isAuthenticated, new UpdateContactController().handle)
 router.delete('/contact', isAuthenticated, new DeleteContactController().handle);
 
 // rotas address
-router.get('/contact/address', isAuthenticated, new ListAddresController().handle);
-router.post('/contact/address', isAuthenticated, new CreateAddresController().handle);
-router.put('/contact/address', isAuthenticated, new UpdateAddressController().handle);
-router.delete('/contact/address', isAuthenticated, new DeleteAddressController().handle);
+router.get('/address', isAuthenticated, new ListAddresController().handle);
+router.post('/address', isAuthenticated, new CreateAddresController().handle);
+router.put('/address', isAuthenticated, new UpdateAddressController().handle);
+router.delete('/address', isAuthenticated, new DeleteAddressController().handle);
 
 // rotas process
 router.get('/processes', isAuthenticated, new ListProcessController().handle);
