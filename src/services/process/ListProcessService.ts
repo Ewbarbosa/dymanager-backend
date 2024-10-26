@@ -7,7 +7,10 @@ class ListProcessService {
       select: {
         id: true,
         forum: true,
-        processNumber: true
+        processNumber: true,
+        courtDivision: true,
+        action: true,
+        distributedAt: true
       }
     })
 
