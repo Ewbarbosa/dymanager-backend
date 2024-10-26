@@ -20,27 +20,27 @@ model User {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id])
   profileId Int
 
   contact Contact[]
   calls   Call[]
   process Process[]
-  address Address[]  
+  address Address[]
 
   @@map("users")
 }
 
 // Tabela Profile para gerenciamento de acessos
 model Profile {
-  id                Int       @id @default(autoincrement())
-  name              String    @unique // Nome do perfil (ex: Admin, User, Manager)
-  description       String?   // Descrição do perfil (opcional)
-  permissions       Json?      // JSON com lista de permissões (opcional)
-  createdAt         DateTime?  @default(now()) // Data de criação
-  updatedAt         DateTime?  @updatedAt      // Data da última atualização
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // Nome do perfil (ex: Admin, User, Manager)
+  description String? // Descrição do perfil (opcional)
+  permissions Json? // JSON com lista de permissões (opcional)
+  createdAt   DateTime? @default(now()) // Data de criação
+  updatedAt   DateTime? @updatedAt // Data da última atualização
 
-  users             User[]    // Relacionamento reverso com User
+  users User[] // Relacionamento reverso com User
 
   @@map("profiles") // Nome da tabela no banco de dados
 }
@@ -58,10 +58,10 @@ model Contact {
   phone                 String? // Telefone (opcional)
   email                 String? // E-mail (opcional)
   occupation            String? // Profissão (opcional)  
-  workCard              String?
-  pisNumber             String?
-  fatherName            String?
-  motherName            String?
+  workCard              String? // Carteira de trabalho
+  pisNumber             String? // numero do pis  
+  fatherName            String? // nome do pai
+  motherName            String? // nome da mae
   companyName           String? // Razão Social  
   tradeName             String? // Nome Fantasia (opcional)
   stateRegistration     String? // Inscrição Estadual (opcional)
@@ -79,7 +79,7 @@ model Contact {
   ContactProcess ContactProcess[]
   Call           Call[]
   Loan           Loan[]
-  BankAccount   BankAccount[]
+  BankAccount    BankAccount[]
 
   @@index([cpfCnpj], name: "cpf_index")
   @@map("contacts")
@@ -123,7 +123,7 @@ model Process {
 
 // relacionamento n para n
 model ContactProcess {
-  contact  Contact @relation(fields: [contactId], references: [id])
+  contact   Contact @relation(fields: [contactId], references: [id])
   contactId Int
 
   process   Process @relation(fields: [processId], references: [id])
