@@ -16,6 +16,7 @@ import { UpdateContactController } from './controllers/person/UpdateContactContr
 import { DeleteContactController } from './controllers/person/DeletePersonController';
 
 import { ListProcessController } from './controllers/process/ListProcessController';
+import { FindProcessController } from './controllers/process/FindProcessController';
 import { CreateProcessController } from './controllers/process/CreateProcessController';
 import { DeleteProcessController } from './controllers/process/DeleteProcessController';
 import { UpdateProcessController } from './controllers/process/UpdateProcessController';
@@ -45,6 +46,7 @@ router.delete('/address', isAuthenticated, new DeleteAddressController().handle)
 
 // rotas process
 router.get('/processes', isAuthenticated, new ListProcessController().handle);
+router.get('/process', isAuthenticated, new FindProcessController().handle);
 router.post('/process', isAuthenticated, new CreateProcessController().handle);
 router.delete('/process', isAuthenticated, new DeleteProcessController().handle);
 router.put('/process', isAuthenticated, new UpdateProcessController().handle);
