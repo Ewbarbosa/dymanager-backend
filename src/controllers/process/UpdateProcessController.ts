@@ -2,9 +2,7 @@ import { Request, Response } from "express";
 import { UpdateProcessService } from "../../services/process/UpdateProcessService";
 
 class UpdateProcessController {
-
   async handle(req: Request, res: Response) {
-
     const {
       id,
       forum,
@@ -15,7 +13,7 @@ class UpdateProcessController {
       cause_value,
       status,
       observation,
-      client_id
+      client_id,
     } = req.body;
 
     const updateProcessService = new UpdateProcessService();
@@ -30,11 +28,11 @@ class UpdateProcessController {
       cause_value,
       status,
       observation,
-      client_id
+      client_id,
     });
 
-    return res.json(process);
+    return res.status(200).json(process);
   }
 }
 
-export { UpdateProcessController }
+export { UpdateProcessController };

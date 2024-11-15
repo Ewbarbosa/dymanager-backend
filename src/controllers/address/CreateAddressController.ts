@@ -1,10 +1,10 @@
-import { Request, Response } from 'express'
-import { CreateAddressService } from '../../services/address/CreateAddressService'
+import { Request, Response } from "express";
+import { CreateAddressService } from "../../services/address/CreateAddressService";
 
 class CreateAddresController {
   async handle(req: Request, res: Response) {
-
-    const { street, postalCode, district, city, state, contactId, userId } = req.body;
+    const { street, postalCode, district, city, state, contactId, userId } =
+      req.body;
 
     const createAddressService = new CreateAddressService();
 
@@ -18,8 +18,8 @@ class CreateAddresController {
       userId,
     });
 
-    return res.json(address);
+    return res.status(201).json(address);
   }
 }
 
-export { CreateAddresController }
+export { CreateAddresController };

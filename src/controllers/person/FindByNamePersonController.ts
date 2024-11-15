@@ -9,9 +9,7 @@ class FindByNamePersonController {
 
     const contacts = await findByNameContactService.execute(fullName as string);
 
-    console.log(contacts);
-
-    return res.json(contacts);
+    return res.status(200).json(contacts);
   }
 }
 

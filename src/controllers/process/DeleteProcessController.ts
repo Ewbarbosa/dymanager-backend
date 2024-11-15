@@ -3,15 +3,14 @@ import { DeleteProcessService } from "../../services/process/DeleteProcessServic
 
 class DeleteProcessController {
   async handle(req: Request, res: Response) {
-
     const { id } = req.body;
 
     const deleteProcessService = new DeleteProcessService();
 
     const process = deleteProcessService.execute(id);
 
-    return res.json(process);
+    return res.status(200).json(process);
   }
 }
 
-export { DeleteProcessController }
+export { DeleteProcessController };

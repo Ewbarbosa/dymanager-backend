@@ -1,10 +1,9 @@
-import { Request, Response } from 'express'
+import { Request, Response } from "express";
 
-import { CreateContactService } from '../../services/contact/CreateContactService';
+import { CreateContactService } from "../../services/contact/CreateContactService";
 
 class CreateContactController {
-
-  async handle(req: Request, res: Response){
+  async handle(req: Request, res: Response) {
     const {
       cpfCnpj,
       fullName,
@@ -19,12 +18,12 @@ class CreateContactController {
       workCard,
       pisNumber,
       fatherName,
-      motherName,      
-      userId
+      motherName,
+      userId,
     } = req.body;
 
     const createPersonService = new CreateContactService();
-        
+
     const contact = await createPersonService.execute({
       cpfCnpj,
       fullName,
@@ -39,12 +38,12 @@ class CreateContactController {
       workCard,
       pisNumber,
       fatherName,
-      motherName,      
-      userId
+      motherName,
+      userId,
     });
-    
-    return res.json(contact);
+
+    return res.status(201).json(contact);
   }
 }
 
-export { CreateContactController }
+export { CreateContactController };

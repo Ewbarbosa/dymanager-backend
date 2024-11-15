@@ -1,9 +1,8 @@
-import {Request, Response} from 'express'
-import { CreateUserService } from '../../services/user/CreateUserService';
+import { Request, Response } from "express";
+import { CreateUserService } from "../../services/user/CreateUserService";
 
 class CreateUserController {
-  async handle(req: Request, res: Response){
-
+  async handle(req: Request, res: Response) {
     const { name, email, password, profileId } = req.body;
 
     const createUserService = new CreateUserService();
@@ -12,11 +11,11 @@ class CreateUserController {
       name,
       email,
       password,
-      profileId
+      profileId,
     });
 
-    return res.json(user)
+    return res.status(201).json(user);
   }
 }
 
-export {CreateUserController}
+export { CreateUserController };

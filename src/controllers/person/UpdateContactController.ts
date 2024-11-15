@@ -1,10 +1,8 @@
-import { Request, Response } from 'express'
-import { UpdateContactService } from '../../services/contact/UpdateContactService'
+import { Request, Response } from "express";
+import { UpdateContactService } from "../../services/contact/UpdateContactService";
 
 class UpdateContactController {
-
   async handle(req: Request, res: Response) {
-
     const {
       id,
       cpfCnpj,
@@ -26,7 +24,7 @@ class UpdateContactController {
       stateRegistration,
       municipalRegistration,
       responsiblePerson,
-      responsibleCpf
+      responsibleCpf,
     } = req.body;
 
     const updatePersonService = new UpdateContactService();
@@ -52,12 +50,11 @@ class UpdateContactController {
       stateRegistration,
       municipalRegistration,
       responsiblePerson,
-      responsibleCpf
-    })
+      responsibleCpf,
+    });
 
-    return res.json(contact);
+    return res.status(200).json(contact);
   }
-
 }
 
-export { UpdateContactController }
+export { UpdateContactController };
