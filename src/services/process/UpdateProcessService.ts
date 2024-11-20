@@ -24,12 +24,21 @@ class UpdateProcessService {
     cause_value,
     status,
     observation,
-    client_id
+    client_id,
   }: ProcessRequest) {
-
     // verifica se os campos foram preenchidos
-    if (forum === '' || processNumber === '' || courtDivision === '' || action === '' || !distributedAt || !cause_value || status === '' || observation === '' || !client_id) {
-      throw new Error('Mandatory fields must be filled');
+    if (
+      forum === "" ||
+      processNumber === "" ||
+      courtDivision === "" ||
+      action === "" ||
+      !distributedAt ||
+      !cause_value ||
+      status === "" ||
+      observation === "" ||
+      !client_id
+    ) {
+      throw new Error("Mandatory fields must be filled");
     }
 
     const process = await prismaClient.process.update({
@@ -45,11 +54,11 @@ class UpdateProcessService {
         causeValue: cause_value,
         status: status,
         observation: observation,
-      }
-    })
+      },
+    });
 
     return process;
   }
 }
 
-export { UpdateProcessService }
+export { UpdateProcessService };

@@ -12,6 +12,23 @@ datasource db {
 
 // criar uma migration: yarn prisma migrate dev 
 
+// Enum para o campo gender
+// enum Gender {
+//   MASCULINO // Masculino
+//   FEMININO // Feminino
+//   OUTRO // Outro  
+// }
+
+// Enum para o estado civil
+// enum MaritalStatus {
+//   SOLTEIRO // Solteiro(a)
+//   CASADO // Casado(a)
+//   DIVORCIADO // Divorciado(a)
+//   VIUVO // Viúvo(a)
+//   SEPARADO // Separado(a)
+//   OUTRO // Outro
+// }
+
 model User {
   id         Int       @id @default(autoincrement())
   name       String
@@ -24,7 +41,6 @@ model User {
   profileId Int
 
   contact Contact[]
-  calls   Call[]
   process Process[]
   address Address[]
 
@@ -45,62 +61,49 @@ model Profile {
   @@map("profiles") // Nome da tabela no banco de dados
 }
 
-// Tabela para Pessoa Física
 model Contact {
   id                    Int            @id @default(autoincrement())
-  cpfCnpj               String         @unique // CPF único e obrigatório
-  fullName              String? // Nome completo
-  rg                    String? // Registro Geral (opcional)
-  dateOfBirth           DateTime? // Data de nascimento
-  gender                String? // Sexo (enum)
-  nationality           String? // Nacionalidade
-  maritalStatus         String? // Estado civil (opcional)
-  phone                 String? // Telefone (opcional)
-  email                 String? // E-mail (opcional)
-  occupation            String? // Profissão (opcional)  
-  workCard              String? // Carteira de trabalho
-  pisNumber             String? // numero do pis  
-  fatherName            String? // nome do pai
-  motherName            String? // nome da mae
-  companyName           String? // Razão Social  
-  tradeName             String? // Nome Fantasia (opcional)
-  stateRegistration     String? // Inscrição Estadual (opcional)
-  municipalRegistration String? // Inscrição Municipal (opcional)
-  responsiblePerson     String? // Nome do responsável (opcional)
-  responsibleCpf        String? // CPF do responsável (opcional)
+  cpfCnpj               String         @unique          // CPF ou CNPJ único e obrigatório
+  isCompany             Boolean        @default(false)  // Define se é uma empresa (true) ou pessoa física (false)
+
+  // Campos para pessoa física
+  fullName              String?        // Nome completo
+  rg                    String?        // Registro Geral (opcional)
+  dateOfBirth           DateTime?      // Data de nascimento
+  gender                String?        // Sexo
+  nationality           String?        // Nacionalidade
+  maritalStatus         String? // Estado civil
+  phone                 String?        // Telefone (opcional)
+  email                 String?        // E-mail (opcional)
+  occupation            String?        // Profissão (opcional)  
+  workCard              String?        // Carteira de trabalho
+  pisNumber             String?        // Número do PIS  
+  fatherName            String?        // Nome do pai
+  motherName            String?        // Nome da mãe
+
+  // Campos para pessoa jurídica
+  companyName           String?        // Razão Social
+  tradeName             String?        // Nome Fantasia (opcional)
+  stateRegistration     String?        // Inscrição Estadual (opcional)
+  municipalRegistration String?        // Inscrição Municipal (opcional)
+  responsiblePerson     String?        // Nome do responsável (opcional)
+  responsibleCpf        String?        // CPF do responsável (opcional)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Relacionamento com o usuário que criou o contato
   user   User @relation(fields: [userId], references: [id])
-  userId Int // criado pelo userId // relação 1 - n
+  userId Int
 
-  Address        Address[] // endereço
-  ContactProcess ContactProcess[]
-  Call           Call[]
-  Loan           Loan[]
-  BankAccount    BankAccount[]
+  // Relacionamentos com outras tabelas
+  Address        Address[]           // Endereços associados ao contato
+  ContactProcess ContactProcess[]    // Relacionamento n-n com processos
+  BankAccount    BankAccount[]       // Contas bancárias associadas ao contato
 
   @@index([cpfCnpj], name: "cpf_index")
   @@map("contacts")
 }
-
-// Enum para o campo gender
-// enum Gender {
-//   MASCULINO // Masculino
-//   FEMININO // Feminino
-//   OUTRO // Outro  
-// }
-
-// Enum para o estado civil
-// enum MaritalStatus {
-//   SOLTEIRO // Solteiro(a)
-//   CASADO // Casado(a)
-//   DIVORCIADO // Divorciado(a)
-//   VIUVO // Viúvo(a)
-//   SEPARADO // Separado(a)
-//   OUTRO // Outro
-// }
 
 model Process {
   id            Int       @id @default(autoincrement())
@@ -155,49 +158,6 @@ model Address {
   @@map("addresses")
 }
 
-model Call {
-  id             Int       @id @default(autoincrement())
-  start          DateTime? @default(now())
-  end            DateTime? @default(now())
-  contactChannel String?
-
-  // relations
-  contact   Contact @relation(fields: [contactId], references: [id])
-  contactId Int
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  loan Loan?
-
-  @@map("calls")
-}
-
-model Loan {
-  id            Int       @id @default(autoincrement())
-  nInstallments Int // numero de parcelas
-  vInstallments Float // valor das parcelas
-  amount        Float
-  start         DateTime
-  end           DateTime
-  createdAt     DateTime? @default(now())
-  updatedAt     DateTime? @default(now())
-  category      String
-
-  // relations  
-  bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
-  bankAccountId Int         @unique
-
-  // one to one
-  call   Call @relation(fields: [callId], references: [id])
-  callId Int  @unique
-
-  contact   Contact @relation(fields: [contactId], references: [id])
-  contactId Int
-
-  @@map("loans")
-}
-
 model Bank {
   id   Int    @id @default(autoincrement())
   name String // nome do banco
@@ -215,7 +175,6 @@ model BankAccount {
   account Int // conta
 
   // aqui é uma relação entre tabelas
-  loan Loan?
 
   bank   Bank @relation(fields: [bankId], references: [id])
   bankId Int // código do banco
