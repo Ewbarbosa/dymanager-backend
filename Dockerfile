@@ -19,5 +19,4 @@ RUN npm run build
 CMD ["npm", "run", "start"]
 
 # expôe a porta
-EXPOSE 3333
-
+EXPOSE 3001
