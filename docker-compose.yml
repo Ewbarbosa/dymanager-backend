@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+
+  # dymanager-db:
+  #   image: postgres:latest
+  #   container_name: dymanager-db
+  #   environment:
+  #     - POSTGRES_PASSWORD=43908701
+  #     - POSTGRES_DB=dymanager-db
+  #   ports:
+  #     - "5433:5432"
+  #   networks:
+  #     - net-dymanager
+  #   restart: always
+  #   volumes:
+  #     - dbcache:/var/lib/postgres/data
+  #     - type: tmpfs
+  #       target: /dev/shm
+  
+  api:
+    build: ./
+    container_name: dymanager-api
+    ports:
+      - "3333:3333"
+    volumes:
+      - data:/home/node/app
+    networks:
+      - net-dymanager
+    env_file:
+      - ./.env
+#    depends_on:
+#      - dymanager-db
+
+volumes:
+ # dbcache:
+  data:
+
+networks:
+  net-dymanager:
+    driver: "bridge"
