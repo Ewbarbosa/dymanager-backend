@@ -26,7 +26,7 @@ services:
     volumes:
       - data:/home/node/app
     networks:
-      - net-dymanager
+      - bridge
     env_file:
       - ./.env
 #    depends_on:
@@ -36,6 +36,6 @@ volumes:
  # dbcache:
   data:
 
-networks:
-  net-dymanager:
-    driver: "bridge"
+# networks:
+#   net-dymanager:
+#     driver: "bridge"
