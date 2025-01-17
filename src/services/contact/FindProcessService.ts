@@ -4,22 +4,18 @@ class FindProcessService {
 
   async execute(id: number) {
 
-    const process = await prismaClient.process.findUnique({
-      select: {
-        id: true,
-        forum: true,
-        processNumber: true,
-        courtDivision: true,
-        action: true,
-        distributedAt: true,
-        causeValue: true,
-        status: true,
-        observation: true,
-      },
+    const process = await prismaClient.process.findUnique({      
       where: {
         id: id
+      },
+      include: {
+        ContactProcess: {
+          include: {
+            contact: true
+          }
+        }
       }
-    })
+    });
 
     return process;
   }

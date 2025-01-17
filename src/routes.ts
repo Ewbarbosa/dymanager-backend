@@ -25,6 +25,7 @@ import { CreateContactProcessController } from "./controllers/process/CreateCont
 // middleware
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { FindByNamePersonController } from "./controllers/person/FindByNamePersonController";
+import { DeleteContactProcessController } from "./controllers/contactProcess/DeleteContactProcessController";
 
 const router = Router();
 
@@ -62,17 +63,10 @@ router.delete(
 router.get("/processes", isAuthenticated, new ListProcessController().handle);
 router.get("/process", isAuthenticated, new FindProcessController().handle);
 router.post("/process", isAuthenticated, new CreateProcessController().handle);
-router.delete(
-  "/process",
-  isAuthenticated,
-  new DeleteProcessController().handle
-);
 router.put("/process", isAuthenticated, new UpdateProcessController().handle);
-router.post(
-  "/contactprocess",
-  isAuthenticated,
-  new CreateContactProcessController().handle
-);
+router.post("/contactprocess", isAuthenticated, new CreateContactProcessController().handle);
+router.delete("/process", isAuthenticated, new DeleteProcessController().handle);
+router.delete("/contactprocess", isAuthenticated, new DeleteContactProcessController().handle);
 
 // se quiser lançar uma exceção como erro utilizar a linha abaixo
 //throw new Error('Erro ao fazer essa requisição.')

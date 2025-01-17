@@ -29,6 +29,8 @@ class CreateProcessController {
       userId
     });
 
+    //console.log(process)
+
     return res.status(201).json(process);    
   }
 }

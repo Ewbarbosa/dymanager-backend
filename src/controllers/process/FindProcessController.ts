@@ -5,6 +5,8 @@ class FindProcessController {
   async handle(req: Request, res: Response) {
     const { id } = req.query;
 
+    //console.log(id)
+
     const findProcess = new FindProcessService();
 
     const process = await findProcess.execute(parseInt(id as string));

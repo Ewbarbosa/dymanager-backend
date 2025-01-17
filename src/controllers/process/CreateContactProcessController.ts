@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateContactProcessService } from "../../services/process/CreatePersonProcessService";
+import { CreateContactProcessService } from "../../services/contactProcess/CreatePersonProcessService";
 
 class CreateContactProcessController {
   async handle(req: Request, res: Response) {
@@ -13,8 +13,8 @@ class CreateContactProcessController {
 
     try {
       const results = await Promise.all(
-        contacts.map(async ({ contactId, processId }) => {
-          return await createContactProcess.execute({ contactId, processId });
+        contacts.map(async ({ contactId, processId, role }) => {
+          return await createContactProcess.execute({ contactId, processId, role });
         })
       );
 
@@ -22,13 +22,6 @@ class CreateContactProcessController {
     } catch {
       return res.status(500).json({ message: "erro ao criar relacionamentos" });
     }
-
-    // const personProcess = await createContactProcess.execute({
-    //   contactId,
-    //   processId,
-    // });
-
-    //return res.status(201).json(personProcess);
   }
 }
 

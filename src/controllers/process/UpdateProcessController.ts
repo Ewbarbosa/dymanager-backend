@@ -4,7 +4,6 @@ import { UpdateProcessService } from "../../services/process/UpdateProcessServic
 class UpdateProcessController {
   async handle(req: Request, res: Response) {
     const {
-      id,
       forum,
       processNumber,
       courtDivision,
@@ -12,14 +11,19 @@ class UpdateProcessController {
       distributedAt,
       cause_value,
       status,
-      observation,
-      client_id,
+      observation
     } = req.body;
+
+    const { id } = req.query;
+
+    console.log(id)
 
     const updateProcessService = new UpdateProcessService();
 
+    const processId = parseInt(id as string);
+
     const process = await updateProcessService.execute({
-      id,
+      id: processId,
       forum,
       processNumber,
       courtDivision,
@@ -28,7 +32,6 @@ class UpdateProcessController {
       cause_value,
       status,
       observation,
-      client_id,
     });
 
     return res.status(200).json(process);

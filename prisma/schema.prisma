@@ -62,32 +62,32 @@ model Profile {
 }
 
 model Contact {
-  id                    Int            @id @default(autoincrement())
-  cpfCnpj               String         @unique          // CPF ou CNPJ único e obrigatório
-  isCompany             Boolean        @default(false)  // Define se é uma empresa (true) ou pessoa física (false)
+  id        Int     @id @default(autoincrement())
+  cpfCnpj   String  @unique // CPF ou CNPJ único e obrigatório
+  isCompany Boolean @default(false) // Define se é uma empresa (true) ou pessoa física (false)
 
   // Campos para pessoa física
-  fullName              String?        // Nome completo
-  rg                    String?        // Registro Geral (opcional)
-  dateOfBirth           DateTime?      // Data de nascimento
-  gender                String?        // Sexo
-  nationality           String?        // Nacionalidade
-  maritalStatus         String? // Estado civil
-  phone                 String?        // Telefone (opcional)
-  email                 String?        // E-mail (opcional)
-  occupation            String?        // Profissão (opcional)  
-  workCard              String?        // Carteira de trabalho
-  pisNumber             String?        // Número do PIS  
-  fatherName            String?        // Nome do pai
-  motherName            String?        // Nome da mãe
+  fullName      String? // Nome completo
+  rg            String? // Registro Geral (opcional)
+  dateOfBirth   DateTime? // Data de nascimento
+  gender        String? // Sexo
+  nationality   String? // Nacionalidade
+  maritalStatus String? // Estado civil
+  phone         String? // Telefone (opcional)
+  email         String? // E-mail (opcional)
+  occupation    String? // Profissão (opcional)  
+  workCard      String? // Carteira de trabalho
+  pisNumber     String? // Número do PIS  
+  fatherName    String? // Nome do pai
+  motherName    String? // Nome da mãe
 
   // Campos para pessoa jurídica
-  companyName           String?        // Razão Social
-  tradeName             String?        // Nome Fantasia (opcional)
-  stateRegistration     String?        // Inscrição Estadual (opcional)
-  municipalRegistration String?        // Inscrição Municipal (opcional)
-  responsiblePerson     String?        // Nome do responsável (opcional)
-  responsibleCpf        String?        // CPF do responsável (opcional)
+  companyName           String? // Razão Social
+  tradeName             String? // Nome Fantasia (opcional)
+  stateRegistration     String? // Inscrição Estadual (opcional)
+  municipalRegistration String? // Inscrição Municipal (opcional)
+  responsiblePerson     String? // Nome do responsável (opcional)
+  responsibleCpf        String? // CPF do responsável (opcional)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,9 +97,9 @@ model Contact {
   userId Int
 
   // Relacionamentos com outras tabelas
-  Address        Address[]           // Endereços associados ao contato
-  ContactProcess ContactProcess[]    // Relacionamento n-n com processos
-  BankAccount    BankAccount[]       // Contas bancárias associadas ao contato
+  Address        Address[] // Endereços associados ao contato
+  ContactProcess ContactProcess[] // Relacionamento n-n com processos
+  BankAccount    BankAccount[] // Contas bancárias associadas ao contato
 
   @@index([cpfCnpj], name: "cpf_index")
   @@map("contacts")
@@ -116,6 +116,9 @@ model Process {
   status        String?
   observation   String?
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   user   User @relation(fields: [userId], references: [id])
   userId Int
 
@@ -131,6 +134,8 @@ model ContactProcess {
 
   process   Process @relation(fields: [processId], references: [id])
   processId Int
+
+  role String // Definindo o papel do contato, como 'Autor' ou 'Réu'
 
   createdAt DateTime @default(now())
 

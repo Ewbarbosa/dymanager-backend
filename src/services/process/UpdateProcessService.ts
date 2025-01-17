@@ -10,7 +10,6 @@ interface ProcessRequest {
   cause_value: number;
   status: string;
   observation: string;
-  client_id: number;
 }
 
 class UpdateProcessService {
@@ -24,22 +23,21 @@ class UpdateProcessService {
     cause_value,
     status,
     observation,
-    client_id,
   }: ProcessRequest) {
     // verifica se os campos foram preenchidos
-    if (
-      forum === "" ||
-      processNumber === "" ||
-      courtDivision === "" ||
-      action === "" ||
-      !distributedAt ||
-      !cause_value ||
-      status === "" ||
-      observation === "" ||
-      !client_id
-    ) {
-      throw new Error("Mandatory fields must be filled");
-    }
+    // if (
+    //   forum === "" ||
+    //   processNumber === "" ||
+    //   courtDivision === "" ||
+    //   action === "" ||
+    //   !distributedAt ||
+    //   !cause_value ||
+    //   status === "" ||
+    //   observation === "" ||
+    //   !client_id
+    // ) {
+    //   throw new Error("Mandatory fields must be filled");
+    // }
 
     const process = await prismaClient.process.update({
       where: {

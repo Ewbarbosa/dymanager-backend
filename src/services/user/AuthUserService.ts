@@ -22,6 +22,8 @@ class AuthUserService {
       }
     })
 
+    console.log('aa')
+
     // se não existir nada na variavel retorna a excessão
     if (!user) {
       throw new Error('User/Password incorrect')
