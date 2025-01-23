@@ -9,7 +9,7 @@ class CreateProcessController {
       courtDivision,
       action,
       distributedAt,
-      cause_value,
+      causeValue,
       status,
       observation,
       userId
@@ -23,7 +23,7 @@ class CreateProcessController {
       courtDivision,
       action,
       distributedAt,
-      cause_value,
+      causeValue,
       status,
       observation,
       userId
