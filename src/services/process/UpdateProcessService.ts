@@ -7,7 +7,7 @@ interface ProcessRequest {
   courtDivision: string;
   action: string;
   distributedAt: Date;
-  cause_value: number;
+  causeValue: number;
   status: string;
   observation: string;
 }
@@ -20,7 +20,7 @@ class UpdateProcessService {
     courtDivision,
     action,
     distributedAt,
-    cause_value,
+    causeValue,
     status,
     observation,
   }: ProcessRequest) {
@@ -49,7 +49,7 @@ class UpdateProcessService {
         courtDivision: courtDivision,
         action: action,
         distributedAt: distributedAt,
-        causeValue: cause_value,
+        causeValue: causeValue,
         status: status,
         observation: observation,
       },

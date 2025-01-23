@@ -22,18 +22,16 @@ class AuthUserService {
       }
     })
 
-    console.log('aa')
-
     // se não existir nada na variavel retorna a excessão
     if (!user) {
-      throw new Error('User/Password incorrect')
+      throw new Error('Usuário/Senha incorretos')
     }
 
     // verifica se a senha enviadda está correta
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('User/Password incorrect')
+      throw new Error('Usuário/Senha incorretos')
     }
 
     // se deu tudo certo gera um token para o usuario

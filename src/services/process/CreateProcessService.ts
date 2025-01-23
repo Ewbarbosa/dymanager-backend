@@ -7,7 +7,7 @@ interface ProcessRequest {
   courtDivision: string;
   action: string;
   distributedAt: Date;
-  cause_value: number;
+  causeValue: number;
   status: string;
   observation: string;
   userId: number
@@ -15,7 +15,7 @@ interface ProcessRequest {
 
 class CreateProcessService {
 
-  async execute({ forum, processNumber, courtDivision, action, distributedAt, cause_value, status, observation, userId }: ProcessRequest) {
+  async execute({ forum, processNumber, courtDivision, action, distributedAt, causeValue, status, observation, userId }: ProcessRequest) {
 
     // verifica se os campos foram preenchidos
     //if (forum === '' || number === '' || court_division === '' || action === '' || !distributed_at || !cause_value || status === '' || observation === '' || !client_id) {
@@ -29,7 +29,7 @@ class CreateProcessService {
         courtDivision: courtDivision,
         action: action,
         distributedAt: distributedAt,
-        causeValue: cause_value,
+        causeValue: causeValue,
         status: status,
         observation: observation,        
         userId: userId

@@ -9,7 +9,7 @@ class UpdateProcessController {
       courtDivision,
       action,
       distributedAt,
-      cause_value,
+      causeValue,
       status,
       observation
     } = req.body;
@@ -29,7 +29,7 @@ class UpdateProcessController {
       courtDivision,
       action,
       distributedAt,
-      cause_value,
+      causeValue,
       status,
       observation,
     });
