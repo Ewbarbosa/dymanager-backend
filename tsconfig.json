@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "typeRoots": ["./src/@types", "./node_modules/@types"], // Inclui pasta global de tipos e tipos do Node.js
-    "types": ["node"], // Inclui tipos do Node.js
+    //"types": ["node"], // Inclui tipos do Node.js
     "sourceMap": true,
     "outDir": "./dist",
     "esModuleInterop": true,
