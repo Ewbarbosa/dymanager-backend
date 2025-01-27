@@ -20,7 +20,7 @@ import { FindProcessController } from "./controllers/process/FindProcessControll
 import { CreateProcessController } from "./controllers/process/CreateProcessController";
 import { DeleteProcessController } from "./controllers/process/DeleteProcessController";
 import { UpdateProcessController } from "./controllers/process/UpdateProcessController";
-import { CreateContactProcessController } from "./controllers/process/CreateContactProcessController";
+import { CreateContactProcessController } from "./controllers/contactProcess/CreateContactProcessController";
 
 // middleware
 import { isAuthenticated } from "./middlewares/isAuthenticated";

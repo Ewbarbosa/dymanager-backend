@@ -30,7 +30,7 @@ async function main() {
       causeValue: faker.number.float(),
       status: faker.helpers.arrayElement(["Ativo", "Inativo"]),
       observation: faker.commerce.department(),
-      userId: 2,
+      userId: 1,
     };
     processes.push(process);
   }

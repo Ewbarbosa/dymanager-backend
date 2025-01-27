@@ -57,7 +57,7 @@ async function main() {
       pisNumber: faker.string.numeric({ length: 11 }),
       fatherName: faker.person.fullName(),
       motherName: faker.person.fullName(),
-      userId: 2, // Assumindo que userId refere-se a um usuário existente
+      userId: 1, // Assumindo que userId refere-se a um usuário existente
     };
     users.push(user);
   }

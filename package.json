@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc --build",
-    "start": "node dist/src/index.js"
+    "start": "node dist/src/index.js",
+    "seed": "ts-node-dev ./seed.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
