@@ -10,10 +10,10 @@ import { UpdateAddressController } from "./controllers/address/UpdateAddressCont
 import { DeleteAddressController } from "./controllers/address/DeleteAddressController";
 import { ListAddresController } from "./controllers/address/ListAddresController";
 
-import { CreateContactController } from "./controllers/person/CreatePersonController";
-import { ListContactController } from "./controllers/person/ListPersonController";
-import { UpdateContactController } from "./controllers/person/UpdateContactController";
-import { DeleteContactController } from "./controllers/person/DeletePersonController";
+import { CreateContactController } from "./controllers/contact/CreateContactController";
+import { ListContactController } from "./controllers/contact/ListContactController";
+import { UpdateContactController } from "./controllers/contact/UpdateContactController";
+import { DeleteContactController } from "./controllers/contact/DeleteContactController";
 
 import { ListProcessController } from "./controllers/process/ListProcessController";
 import { FindProcessController } from "./controllers/process/FindProcessController";
@@ -24,8 +24,9 @@ import { CreateContactProcessController } from "./controllers/contactProcess/Cre
 
 // middleware
 import { isAuthenticated } from "./middlewares/isAuthenticated";
-import { FindByNamePersonController } from "./controllers/person/FindByNamePersonController";
+import { FindByNamePersonController } from "./controllers/contact/FindByNameContactController";
 import { DeleteContactProcessController } from "./controllers/contactProcess/DeleteContactProcessController";
+import { FindByIdContactController } from "./controllers/contact/FindByIdContactController";
 
 const router = Router();
 
@@ -38,26 +39,15 @@ router.get("/me", isAuthenticated, new DetailUserController().handle);
 router.post("/contact", isAuthenticated, new CreateContactController().handle);
 router.get("/contacts", isAuthenticated, new ListContactController().handle);
 router.put("/contact", isAuthenticated, new UpdateContactController().handle);
-router.delete(
-  "/contact",
-  isAuthenticated,
-  new DeleteContactController().handle
-);
-router.get(
-  "/contact",
-  isAuthenticated,
-  new FindByNamePersonController().handle
-);
+router.delete("/contact", isAuthenticated, new DeleteContactController().handle);
+router.get("/contact", isAuthenticated, new FindByNamePersonController().handle);
+router.get("/contactId", isAuthenticated, new FindByIdContactController().handle);
 
 // rotas address
 router.get("/address", isAuthenticated, new ListAddresController().handle);
 router.post("/address", isAuthenticated, new CreateAddresController().handle);
 router.put("/address", isAuthenticated, new UpdateAddressController().handle);
-router.delete(
-  "/address",
-  isAuthenticated,
-  new DeleteAddressController().handle
-);
+router.delete("/address", isAuthenticated, new DeleteAddressController().handle);
 
 // rotas process
 router.get("/processes", isAuthenticated, new ListProcessController().handle);

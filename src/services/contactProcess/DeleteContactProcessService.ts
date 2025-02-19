@@ -8,16 +8,28 @@ interface ContactProcess {
 class DeleteContactProcessService {
   async execute({ contactId, processId }: ContactProcess) {
 
-    const process = await prismaClient.contactProcess.delete({
+    //console.log(contactId)
+    //console.log(processId)
+
+    const processExists = await prismaClient.contactProcess.findFirst({
       where: {
-        contactId_processId: {
-          contactId,
-          processId
-        }
+        contactId,
+        processId
       }
     });
 
-    return process;
+    if (processExists) {
+      const process = await prismaClient.contactProcess.delete({
+        where: {
+          contactId_processId: {
+            contactId,
+            processId
+          }
+        }
+      });
+
+      return process;
+    }    
   }
 }
 

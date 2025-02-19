@@ -14,12 +14,13 @@ class CreateContactProcessController {
     try {
       const results = await Promise.all(
         contacts.map(async ({ contactId, processId, role }) => {
-          return await createContactProcess.execute({ contactId, processId, role });
+          return await createContactProcess.execute({ contactId: Number(contactId), processId: Number(processId), role });
         })
       );
 
       return res.status(201).json(results);
-    } catch {
+    } catch (error) {
+      console.log(error)
       return res.status(500).json({ message: "erro ao criar relacionamentos" });
     }
   }

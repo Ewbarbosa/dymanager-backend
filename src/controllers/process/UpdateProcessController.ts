@@ -14,9 +14,7 @@ class UpdateProcessController {
       observation
     } = req.body;
 
-    const { id } = req.query;
-
-    console.log(id)
+    const { id } = req.query;    
 
     const updateProcessService = new UpdateProcessService();
 
